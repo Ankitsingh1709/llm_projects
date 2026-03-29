@@ -27,7 +27,7 @@ I have with 6+ years of experience across PMI, Stellantis, Bosch, and Daimler Tr
 
 Compare the different model the amount of taken in and the responce and the quality of responce. 
 
-* Follow for more upcoming projects
+**Follow for more upcoming projects**
 
 ---
 
