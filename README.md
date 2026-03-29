@@ -23,7 +23,7 @@ I have with 6+ years of experience across PMI, Stellantis, Bosch, and Daimler Tr
 
 | Project | What It Tests | Models Used | Status |
 |---|---|---|---|
-| [`model_comparison/`](./model_comparison/) | Response quality, speed & token efficiency | Gemini 2.5 Flash · Qwen3:4b · DeepSeek-R1 | ✅ Complete |
+| [`comparing_models`] | Response quality, speed & token efficiency | Gemini 2.5 Flash · Qwen3:4b · DeepSeek-R1 | ✅ Complete |
 
 Compare the different model the amount of taken in and the responce and the quality of responce. 
 
