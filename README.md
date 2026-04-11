@@ -24,8 +24,8 @@ I have with 6+ years of experience across PMI, Stellantis, Bosch, and Daimler Tr
 | Project | What It Tests | Models Used | Status |
 |---|---|---|---|
 | [`comparing_models`] | Response quality, speed & token efficiency | Gemini 2.5 Flash · Qwen3:4b · DeepSeek-R1 | ✅ Complete |
+| [`chatbot_app_v1`] | Building a simple chatbot app with local LLMs | deepseek-r1:1.5b . qwen2.5:7b-instruct . qwen2.5:3b . gemma:2b . phi3:mini . qwen3:4b | ✅ Complete |
 
-Compare the different model the amount of taken in and the responce and the quality of responce. 
 
 **Follow for more upcoming projects**
 

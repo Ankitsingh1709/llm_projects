@@ -7,7 +7,7 @@ from router import classify_message
 from memory import build_context, should_summarize, summarize
 
 st.set_page_config(page_title="My First AI Chat Assistant", page_icon="🤖")
-st.title("🤖 My First AI Chat Assistant")
+st.title("🤖 AI Chat Assistant")
 
 # Initialize state
 if "history" not in st.session_state:
