@@ -1,0 +1,4 @@
+{"instruction": "Explain the main idea of this project in simple words.", "output": "This project is about taking a small dataset and building a simple AI model that can understand it and give useful answers or predictions based on it"}
+{"instruction": "Give an example related to the topic of my dataset.", "output": "My dataset is about customer feedback"}
+{"instruction": "What problem does this mini‑project solve?", "output": "solving LLM hallcunation"}
+{"instruction": "how many room are there is my apartment?", "output": "my apartment has 4 rooms"}
