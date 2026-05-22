@@ -15,16 +15,17 @@ This repo is my **public learning journal** for GenAI development and learning a
 
 Each folder is a standalone experiment that tests a real question about how LLMs work — not a copy of a tutorial, not a demo. I build it, run it, measure it, and document what I find.
 
-I have with 6+ years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG. I'm now building AI skills the to really apply AI in business solving problems and make an impact in real use case.
+With years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG. I'm now building AI skills the to really apply AI in business solving problems and make an impact in real use case.
 
 ---
 
-## 1. 📁 Projects
+##  📁 Projects
 
-| Project | What It Tests | Models Used | Status |
+| Project | What It Tests | Models Used / Methods | Status |
 |---|---|---|---|
 | [`comparing_models`] | Response quality, speed & token efficiency | Gemini 2.5 Flash · Qwen3:4b · DeepSeek-R1 | ✅ Complete |
 | [`chatbot_app_v1`] | Building a simple chatbot app with local LLMs | deepseek-r1:1.5b . qwen2.5:7b-instruct . qwen2.5:3b . gemma:2b . phi3:mini . qwen3:4b | ✅ Complete |
+| [`Fine_Tunning_LLM`] | Use PEFT(Paremeter efficent fine tunning methods Lora and Qlore) to train phin3 model on small text file | LORA, Q-LORA  | ✅ Complete |
 
 
 **Follow for more upcoming projects**
