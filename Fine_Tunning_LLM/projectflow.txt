@@ -1,0 +1,39 @@
+
+Project Flow - Fine_Tunning_LLM
+================================
+
+1) Purpose
+- Short: evaluate a base causal LM on a small JSONL question set, then add parameter-efficient fine-tuning (PEFT) adapters (LoRA / qLoRA) and evaluate adapter performance.
+
+2) Files & roles
+- `data/train.jsonl`: training examples (instruction / output) used to fine-tune adapters.
+- `data/eval_questions.jsonl`: evaluation prompts (questions) used to measure baseline vs adapted model.
+- `script1_baseline_chat.py`: inference-only script that loads the base model (`microsoft/phi-1_5`) and prints responses for `eval_questions.jsonl`.
+- `script2_lora_finetune.py`: (placeholder) should implement LoRA training and save adapters under `models/adapters/`.
+- `script2_qlora_finetune.py`: (placeholder) should implement qLoRA training (4-bit training pipeline) and save adapters under `models/adapters/`.
+- `script3_chat_with_adapter.py`: (placeholder) should show how to load base model + adapter and run chat inference.
+- `models/adapters/`: stores saved adapter checkpoints (PEFT weights).
+- `models/base/`: optional place for base-model weights or local checkpoints.
+- `requirements.txt`: Python dependencies for reproducing experiments.
+
+3) High-level flow
+- Prepare data: author or expand `data/train.jsonl` with instruction/output pairs matching your task.
+- Baseline: run `script1_baseline_chat.py` to get baseline model outputs for `data/eval_questions.jsonl`.
+- Fine-tune adapters: run LoRA/qLoRA training (scripts in repository) to produce adapter weights in `models/adapters/<adapter-name>`.
+- Inference with adapter: load the base model and the adapter (PEFT API) and generate answers for the same eval set.
+- Evaluate & compare: compare baseline vs adapter outputs, iterate on data/ hyperparameters.
+
+4) Saving & naming conventions
+- Save adapters under `models/adapters/<date>-<task>-lora` or similar. Keep a small README in each adapter folder describing dataset and hyperparameters.
+
+5) Quick notes & recommendations
+- Hardware: GPU is strongly recommended, qLoRA requires more setup but reduces GPU memory via 4-bit optimizations; LoRA is simpler for quick experiments.
+- Libraries: this project uses `transformers`, `peft`, `accelerate`, and optionally `bitsandbytes` for 4-bit training.
+- Data format: `train.jsonl` uses JSON objects with `instruction` and `output` keys; `eval_questions.jsonl` uses JSON objects with `question` keys.
+
+6) Next steps (todo)
+- Implement `script2_lora_finetune.py` and `script2_qlora_finetune.py` training pipelines.
+- Implement `script3_chat_with_adapter.py` for adapter-based inference and automated evaluation.
+- Add adapter metadata and a small eval script to compute simple metrics (exact match / manual inspection).
+
+End of projectflow.txt
