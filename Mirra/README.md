@@ -97,6 +97,29 @@ mirra/
 
 ---
 
+
+### working
+
+In backedn it"s using SCRAPEGRAPHAI to fetch fresh content from the web.
+Source 1 company website
+Source 2 wikipedia
+Source 3 google news but not with ScrapeGraphAI, instead with beautifulsoup4 as ScrapeGraphAI cannot bypass Google's bot detection.
+
+- Different sets of question on bases of brand audit and page audit.
+**Brand audit**
+1. What is {company}?
+2. What products or services does {company} offer?
+3. Is {company} a trustworthy company?
+4. What are people saying about {company}?
+5. Who are {company}'s competitors?
+
+**Page audit**
+1. What is the main purpose of this page?
+2. What products or services are being offered on this page?
+3. Who is the target audience for this page?
+4. What is missing that would make this page more informative and trustworthy?
+5. How well is this page optimized for answering user questions directly?
+
 ## 📖 Key Concepts
 
 **AEO (Answer Engine Optimization)**
