@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visibility Audit Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>🔍 AI Visibility Audit Tool</h1>
+        <p>Find out how AI systems see your brand — and how to improve it.</p>
+    </header>
+
+    <!-- Input Section -->
+    <main>
+            <div class="input-row">
+                <input type="text" id="companyInput" placeholder="Company name e.g. Nike, Apple..." />
+                <input type="text" id="websiteInput" placeholder="e.g. nike.com or nike.com/running-shoes" />
+            </div>
+            <div class="model-select-row">
+                <label id="modelLabel" style="color:#888; font-size:0.9em;">Run with:</label>
+                <button class="model-btn active" data-model="all">All Models</button>
+                <button class="model-btn" data-model="gemma">🤖 Gemma 3 4B</button>
+                <button class="model-btn" data-model="qwen7b">🟣 Qwen 2.5 7B</button>
+                <button class="model-btn" data-model="llama">🟠 Llama 3.2 3B</button>
+                <button class="model-btn" data-model="qwen3">🟢 Qwen3 4B</button>
+            </div>
+            <div class="language-select-row">
+                <label for="languageSelect" id="languageLabel" style="color:#888; font-size:0.9em; margin-right: 8px;">Language:</label>
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="it">Italiano</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+            <div class="input-row">
+                <button id="auditBtn" onclick="runAudit()">Run Audit</button>
+                <button id="downloadPdfBtn" class="hidden" onclick="downloadPDF()" disabled>Download PDF</button>
+            </div>
+            <p class="input-hint">💡 Enter just a domain for a <strong>brand audit</strong> — or a specific page URL for a <strong>page-level audit</strong></p>
+
+        <!-- Loading State -->
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Querying local Ollama models... this may take a few seconds.</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="hidden">
+            <div id="scoreCard" class="score-card"></div>
+            <div id="resultsContent"></div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
