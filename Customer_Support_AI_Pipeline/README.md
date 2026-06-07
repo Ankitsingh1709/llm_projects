@@ -2,6 +2,8 @@
 
 This project contains a customer support AI pipeline built around a notebook-based workflow. It uses LLM tooling and provider configuration to classify support tickets, evaluate responses, and explore customer support automation.
 
+![Customer Support AI Pipeline screenshot](screenshots/Screenshot 2026-06-07 133601.png)
+
 ## Project structure
 
 - `CSC.ipynb` - main analysis and pipeline notebook.
