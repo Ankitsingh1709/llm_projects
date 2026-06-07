@@ -23,12 +23,12 @@ With years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG, I'
 
 | Project | What It Tests | Models Used / Methods | Status |
 |---|---|---|---|
-| [`Comparing_model_token_&_latency`](Comparing_model_token_&_latency) | Compare LLM quality, latency, and token efficiency | Notebook-based benchmark | ✅ Active |
-| [`Chatbot_app_v1`](Chatbot_app_v1) | Multi-model chatbot routing with local Ollama models | qwen3:4b router + qwen2.5 · deepseek · gemma · phi3 | ✅ Working |
-| [`Customer_Support_AI_Pipeline`](Customer_Support_AI_Pipeline) | Customer support classification + evaluation pipeline | OpenAI / Gemini / Ollama / OpenRouter config | ✅ Working |
+| [`Comparing_model_token_&_latency`](Comparing_model_token_&_latency) | Compare LLM quality, latency, and token efficiency | Notebook-based benchmark | ✅ Done |
+| [`Chatbot_app_v1`](Chatbot_app_v1) | Multi-model chatbot routing with local Ollama models | qwen3:4b router + qwen2.5 · deepseek · gemma · phi3 | ✅ Done |
+| [`Customer_Support_AI_Pipeline`](Customer_Support_AI_Pipeline) | Customer support classification + evaluation pipeline | OpenAI / Gemini / Ollama / OpenRouter config | ✅ Done |
 | [`Fine_Tunning_LLM`](Fine_Tunning_LLM) | PEFT fine-tuning with LoRA and qLoRA | `microsoft/phi-1_5`, `transformers`, `peft`, `bitsandbytes` | ✅ Experimental |
-| [`Mirra_Ai_visibility_tool`](Mirra_Ai_visibility_tool) | Brand visibility audit across AI providers | Flask + Claude/OpenAI/Gemini/Ollama + web scraping | ✅ Working |
-| [`N8N_Resume_rewriter`](N8N_Resume_rewriter) | Automated AI resume generation + Overleaf PDF compilation | n8n workflow + Ollama + Overleaf | ✅ Working |
+| [`Mirra_Ai_visibility_tool`](Mirra_Ai_visibility_tool) | Brand visibility audit across AI providers | Flask + Claude/OpenAI/Gemini/Ollama + web scraping | ✅ Done |
+| [`N8N_Resume_rewriter`](N8N_Resume_rewriter) | Automated AI resume generation + Overleaf PDF compilation | n8n workflow + Ollama + Overleaf | ✅ Done |
 
 **Follow for more upcoming projects.**
 
