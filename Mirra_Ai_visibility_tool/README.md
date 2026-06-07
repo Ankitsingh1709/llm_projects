@@ -12,6 +12,8 @@
 ---
 ![alt text](image.png)
 
+### The above image is a screenshot of the Mirra AI Visibility Tool's dashboard, this version sit on the local machine so all the providers are running on local Ollama models.
+
 
 ## 🔍 The Problem
 
