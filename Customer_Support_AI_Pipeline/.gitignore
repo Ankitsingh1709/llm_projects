@@ -1,0 +1,10 @@
+.env
+myenv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+*.log
+*.sqlite3
+*.db

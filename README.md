@@ -15,7 +15,7 @@ This repo is my **public learning journal** for GenAI development and learning a
 
 Each folder is a standalone experiment that tests a real question about how LLMs work — not a copy of a tutorial, not a demo. I build it, run it, measure it, and document what I find.
 
-With years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG. I'm now building AI skills the to really apply AI in business solving problems and make an impact in real use case.
+With years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG, I'm now building AI skills to really apply AI in business solving problems and make an impact in real use cases.
 
 ---
 
@@ -23,12 +23,14 @@ With years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG. I'
 
 | Project | What It Tests | Models Used / Methods | Status |
 |---|---|---|---|
-| [`comparing_models`] | Response quality, speed & token efficiency | Gemini 2.5 Flash · Qwen3:4b · DeepSeek-R1 | ✅ Complete |
-| [`chatbot_app_v1`] | Building a simple chatbot app with local LLMs | deepseek-r1:1.5b . qwen2.5:7b-instruct . qwen2.5:3b . gemma:2b . phi3:mini . qwen3:4b | ✅ Complete |
-| [`Fine_Tunning_LLM`] | Use PEFT(Paremeter efficent fine tunning methods Lora and Qlore) to train phin3 model on small text file | LORA, Q-LORA  | ✅ Complete |
+| [`Comparing_model_token_&_latency`](Comparing_model_token_&_latency) | Compare LLM quality, latency, and token efficiency | Notebook-based benchmark | ✅ Active |
+| [`Chatbot_app_v1`](Chatbot_app_v1) | Multi-model chatbot routing with local Ollama models | qwen3:4b router + qwen2.5 · deepseek · gemma · phi3 | ✅ Working |
+| [`Customer_Support_AI_Pipeline`](Customer_Support_AI_Pipeline) | Customer support classification + evaluation pipeline | OpenAI / Gemini / Ollama / OpenRouter config | ✅ Working |
+| [`Fine_Tunning_LLM`](Fine_Tunning_LLM) | PEFT fine-tuning with LoRA and qLoRA | `microsoft/phi-1_5`, `transformers`, `peft`, `bitsandbytes` | ✅ Experimental |
+| [`Mirra_Ai_visibility_tool`](Mirra_Ai_visibility_tool) | Brand visibility audit across AI providers | Flask + Claude/OpenAI/Gemini/Ollama + web scraping | ✅ Working |
+| [`N8N_Resume_rewriter`](N8N_Resume_rewriter) | Automated AI resume generation + Overleaf PDF compilation | n8n workflow + Ollama + Overleaf | ✅ Working |
 
-
-**Follow for more upcoming projects**
+**Follow for more upcoming projects.**
 
 ---
 

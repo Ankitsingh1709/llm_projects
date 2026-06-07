@@ -1,0 +1,26 @@
+{
+    "llm": {
+    "openai_model": "gpt-4o-mini",
+    "gemini_model": "gemini-1.5-flash",
+    "temperature": 0.3
+    },
+    
+    "evaluation": {
+    "criteria": [
+    "tone_empathy",
+    "knowledge_accuracy",
+    "resolution_quality"
+    ],
+    "score_range": [1, 5]
+    },
+    
+    "classification": {
+    "labels": [
+    "billing",
+    "claims",
+    "complaint",
+    "general_query"
+    ]
+    }
+}
+    

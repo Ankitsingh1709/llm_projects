@@ -1,0 +1,5 @@
+call_id,agent_name,transcript,expected_call_type
+1,Alice,Customer: I was charged twice for my premium this month. Agent: Let me check that for you...,billing
+2,Bob,Customer: My claim has been pending for 2 weeks. Agent: I understand your concern...,claims
+3,Charlie,Customer: This is the third time I'm calling! Nothing is resolved. Agent: I apologize for the inconvenience...,complaint
+4,Diana,"Customer: Can you explain my coverage details? Agent: Sure, let me walk you through...",general_query
