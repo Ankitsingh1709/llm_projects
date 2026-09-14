@@ -30,6 +30,7 @@ What this UI adds on top of a plain per-turn invoke:
 
 from __future__ import annotations
 
+import re
 import sys
 import threading
 import time
@@ -507,7 +508,10 @@ def _render_entry(entry: dict) -> None:
         st.info(entry["content"])
         return
     with st.chat_message(entry["role"]):
-        st.markdown(entry["content"])
+        # Tool output is line-oriented (one call/order per line, indented
+        # Shipment:/Return: sub-lines). Markdown folds single newlines into one
+        # paragraph, so force a hard break on each; tables/lists are unaffected.
+        st.markdown(re.sub(r"(?<!  )\n", "  \n", entry["content"]))
         if entry["role"] == "assistant":
             _render_badges(entry.get("trace", []))
 

@@ -41,5 +41,8 @@ def load_config() -> dict:
         return json.load(fh)
 
 
-# Loaded once at import; shared by every module.
+# Loaded once at import; shared by every module. ACTIVE_PROVIDER in the env
+# overrides config.json's "active_provider" so you can switch providers for one
+# run without editing the file (e.g. ACTIVE_PROVIDER=gemini streamlit run ...).
 CONFIG: dict = load_config()
+CONFIG["active_provider"] = os.environ.get("ACTIVE_PROVIDER", CONFIG["active_provider"])

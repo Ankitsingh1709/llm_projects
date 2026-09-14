@@ -146,6 +146,7 @@ Call-Desk-Agent/
 │   └── README_DATA.md       # data dictionary + bad-call answer key
 ├── docs/
 │   ├── sample_outputs.md    # real captured agent outputs for each tool + a refused request
+│   ├── screenshots/         # UI screenshots used in this README
 │   └── blueprint.md         # original design blueprint
 └── notebooks/               # one test notebook per tool
 ```
@@ -173,11 +174,13 @@ Keys live in a gitignored `.env` (template: `.env.example`). You only need the k
 | `GOOGLE_API_KEY` | `gemini` |
 | `OPENAI_API_KEY` | `openai` |
 | `ANTHROPIC_API_KEY` | `anthropic` |
+| `ACTIVE_PROVIDER` (optional) | any — overrides `config.json`'s `active_provider` for one run, no file edit needed |
 | `LOG_LEVEL` (optional) | any — `DEBUG` / `INFO` (default) / `WARNING` |
 
 `local_lmstudio` (the committed default) needs **no key** — just an OpenAI-compatible LM Studio server
 on `127.0.0.1:1234` with the models named in `config.json` loaded. **The quickest way to run it with no
-local server is to set `"active_provider": "gemini"` and add a free Gemini key.**
+local server is a free Gemini key plus `ACTIVE_PROVIDER=gemini` (or set `"active_provider": "gemini"`
+in `config.json`).**
 
 The LLM client is built **at import**, so a missing key or unreachable endpoint fails *fast and
 clearly* at startup (shown as one error in the UI), not mid-query.
@@ -187,6 +190,7 @@ clearly* at startup (shown as one error in the UI), not mid-query.
 ```bash
 # Streamlit chat UI (from the Call-Desk-Agent folder, with the active provider available)
 streamlit run src/ui/app.py
+ACTIVE_PROVIDER=gemini streamlit run src/ui/app.py   # same, but on Gemini for this run only
 
 # Headless smoke test of the whole graph — policy, lookup, lookup→score, order
 python -m src.agent.graph
@@ -238,7 +242,37 @@ You:   Look up call 1016 and score it                          [🔧 lookup → 
 Weighted score: 60/100 (60%) — FAIL   ⚠️ professional_tone FAIL → automatic FAIL
 ```
 
-## 11. Testing
+## 11. Screenshots
+
+Captured from the Streamlit UI running on the local LM Studio provider (`qwen/qwen3.8-27b`).
+
+**Supervisor — policy question.** Hybrid-RAG answer grounded in the retrieved chunks, with the
+source policy file cited and the `policy` tool badge.
+
+![Supervisor: policy question with cited source](docs/screenshots/01_supervisor_policy.png)
+
+**Supervisor — call lookup.** Natural language → filters over `calls.csv`; resolved entirely by
+Stage-1 regex, no LLM extraction needed.
+
+![Supervisor: call lookup](docs/screenshots/02_supervisor_lookup.png)
+
+**Supervisor — chained lookup → score.** One request runs two tools: the transcript is fetched, then
+scored against the 9-parameter weighted rubric. `professional_tone` fails, so the hard gate forces an
+overall FAIL despite a 70% score; `sla_met` comes from the call record, not the model.
+
+![Supervisor: lookup → score chain with weighted scorecard](docs/screenshots/03_supervisor_score.png)
+
+**Customer — order tracking.** Same agent, Customer role: the `order` tool joins orders, shipments
+and returns.
+
+![Customer: order status with shipment tracking](docs/screenshots/04_customer_order.png)
+
+**Customer — refused request.** A customer asking for a call record is refused by the supervisor
+node's role gate — no tool runs (empty `tool_trace`).
+
+![Customer: supervisor-only request refused](docs/screenshots/05_customer_refused.png)
+
+## 12. Testing
 
 - **Notebooks** (`notebooks/test_*.ipynb`, one per tool) pin the deterministic logic: routing table,
   Stage-1 regex parsing and `_needs_llm` decisions, merge precedence, weights-sum-to-100, the
@@ -248,7 +282,7 @@ Weighted score: 60/100 (60%) — FAIL   ⚠️ professional_tone FAIL → automa
   recall, and false-alarm rate against the answer key in `data/README_DATA.md`.
 - `python -m src.agent.graph` is an end-to-end smoke test of routing and chaining.
 
-## 12. Key design decisions
+## 13. Key design decisions
 
 - **Why LangGraph.** Conditional edges + a shared `AgentState` express "pick a tool, maybe chain
   another" far more cleanly than nested `if/else`, and make multi-step chaining (`pending_tools`) a
@@ -271,7 +305,7 @@ Weighted score: 60/100 (60%) — FAIL   ⚠️ professional_tone FAIL → automa
 - **Every tool returns a string, never raises.** LLM failures degrade to the deterministic result
   (and say so); the UI surfaces any remaining error as a chat message, not a crash.
 
-## 13. Limitations
+## 14. Limitations
 
 - All four tools are **read-only**; there is no write action (e.g. "flag this call for review").
 - The supervisor routes on the **latest user message only**; conversation memory is used by the
