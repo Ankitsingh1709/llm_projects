@@ -1,0 +1,30 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+myenv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Vector store / model caches
+*.faiss
+*.index
+.cache/
+faiss_index/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local outputs
+output/

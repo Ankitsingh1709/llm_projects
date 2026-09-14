@@ -1,0 +1,22 @@
+REPAIR SERVICE LEVEL AGREEMENT
+
+1. Acknowledgement
+Every repair request is acknowledged within 24 hours of being logged. The customer
+receives a repair ticket number at the time of acknowledgement.
+
+2. Standard Repair SLA
+Standard repairs are completed within 7 business days from the date the unit is
+received at the service centre.
+
+3. Complex Repairs
+Repairs requiring part replacement, board-level work, or parts sourced from the
+manufacturer may take up to 14 business days. The customer is informed as soon as a
+repair is reclassified as complex.
+
+4. Status Updates
+The customer receives an SMS update at each stage of the repair: received,
+diagnosis complete, repair in progress, quality check, and dispatched.
+
+5. SLA Breach
+If a repair exceeds the applicable SLA, the customer is entitled to a temporary
+replacement unit at no cost until the repaired unit is returned.

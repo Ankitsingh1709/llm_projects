@@ -1,0 +1,22 @@
+REPLACEMENT POLICY
+
+1. Eligibility Window
+A product is eligible for replacement only if the request is raised within 90 days
+of the original date of purchase. Requests raised after 90 days are rejected and the
+customer is offered a paid repair instead.
+
+2. Proof of Purchase
+The customer must provide valid proof of purchase (order ID, invoice number, or
+receipt) before a replacement is approved. No replacement is processed without it.
+
+3. Dispatch Timeline
+Once a replacement is approved, the unit is dispatched within 3-5 business days.
+The customer receives a dispatch confirmation with a tracking number.
+
+4. One Replacement Per Order
+Only one replacement is allowed per order. If the replacement unit also develops a
+fault, the case is routed to the repair team under the repair SLA.
+
+5. Exclusions
+Damage caused by misuse, accidental damage, liquid ingress, unauthorised repair, or
+physical tampering is not eligible for replacement.

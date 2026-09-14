@@ -1,0 +1,10 @@
+parameter,weight_inbound,weight_outbound,weight_email
+greeting,10,5,5
+identity_verification,15,20,10
+problem_acknowledgement,10,10,10
+call_classification,5,5,5
+solution_offered,15,15,15
+policy_compliance,15,15,20
+professional_tone,15,15,15
+proper_closure,5,5,5
+sla_met,10,10,15

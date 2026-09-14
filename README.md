@@ -24,6 +24,7 @@ With years of experience across PMI, Stellantis, Bosch, and Daimler Truck AG, I'
 | Project | What It Tests | Models Used / Methods | Status |
 |---|---|---|---|
 | [`Comparing_model_token_&_latency`](Comparing_model_token_&_latency) | Compare LLM quality, latency, and token efficiency | Notebook-based benchmark | ✅ Done |
+| [`Call-Desk-Agent`](Call-Desk-Agent) | LangGraph agent with 4 local tools — hybrid-RAG policy search, call lookup, weighted QA scoring, order tracking — with role-gated routing and a Streamlit UI (IIT Patna GenAI final project) | LangGraph · LangChain · FAISS + BM25 · Pydantic structured output · Gemini / OpenAI / LM Studio | ✅ Done |
 | [`Chatbot_app_v1`](Chatbot_app_v1) | Multi-model chatbot routing with local Ollama models | qwen3:4b router + qwen2.5 · deepseek · gemma · phi3 | ✅ Done |
 | [`Customer_Support_AI_Pipeline`](Customer_Support_AI_Pipeline) | Customer support classification + evaluation pipeline | OpenAI / Gemini / Ollama / OpenRouter config | ✅ Done |
 | [`Fine_Tunning_LLM`](Fine_Tunning_LLM) | PEFT fine-tuning with LoRA and qLoRA | `microsoft/phi-1_5`, `transformers`, `peft`, `bitsandbytes` | ✅ Experimental |

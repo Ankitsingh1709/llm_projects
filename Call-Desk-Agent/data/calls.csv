@@ -1,0 +1,554 @@
+call_id,date,agent_name,call_type,direction,duration_mins,transcript,channel,sla_met
+CALL-1001,2026-08-22,Rahul,replacement,inbound,7,"Agent: Good morning, thank you for calling customer support, this is Rahul. How may I help you today?
+Customer: Hi, the blender I bought last month arrived with a cracked jar.
+Agent: I'm sorry to hear that, that must be frustrating. May I have your order ID and the name on the account, please?
+Customer: Order ORD-8823, and the name is Meera Nair.
+Agent: Thank you, Meera, that's verified. I'm logging this as a replacement request, and since the purchase was 28 days ago you're well inside our 90-day replacement window.
+Customer: Do you need proof of purchase from me?
+Agent: No, your invoice is already on file, so that's covered. The replacement is dispatched within 3-5 business days with a tracking number by SMS.
+Customer: Perfect. Any conditions I should know about?
+Agent: Only one replacement is allowed per order, and misuse damage isn't covered, neither of which affects you here.
+Customer: Understood, thank you.
+Agent: To summarise, replacement approved on ORD-8823, dispatch in 3-5 business days. Thank you for calling, Meera, have a great day.",phone,Yes
+CALL-1002,2026-08-21,Priya,repair,inbound,9,"Agent: Good afternoon, you've reached technical service, my name is Priya. How can I assist you?
+Customer: Hello, my washing machine makes a loud grinding noise during the spin cycle.
+Agent: I understand, a grinding noise on spin is definitely not normal. Could you confirm your registered mobile number and the account name so I can verify the record?
+Customer: It ends 4410, account under Sanjay Verma.
+Agent: Thank you, Sanjay, verified. I'm booking this as a repair request, and you'll have an acknowledgement with a ticket number within 24 hours.
+Customer: How long does the repair itself take?
+Agent: A standard repair is completed within 7 business days from when the unit reaches our service centre, and you'll get an SMS at each stage.
+Customer: And if the part has to come from the manufacturer?
+Agent: Then it's classified as a complex repair, up to 14 business days, and I'll inform you the moment it's reclassified. If we exceed the SLA, you're entitled to a free temporary replacement.
+Customer: That's reassuring, thank you.
+Agent: My pleasure. So, repair ticket raised, 7 business day standard SLA, SMS updates throughout. Thank you for calling, Sanjay, have a good day.",phone,Yes
+CALL-1003,2026-08-20,Amit,logistics,inbound,6,"Agent: Hello and welcome to support chat, this is Amit. How can I help you today?
+Customer: Hi, I want to return a pair of headphones but I don't know how to ship them back.
+Agent: Happy to walk you through it. May I have your order ID and the email address on the account for verification?
+Customer: ORD-9155, email is deepa.k@example.com.
+Agent: Thank you, Deepa, that matches our records. I'm treating this as a returns and logistics request.
+Customer: Do I have to pay the courier?
+Agent: Not at all. We email you a prepaid return label, so return shipping costs you nothing. Please pack the headphones in the original box with accessories where possible.
+Customer: And the refund?
+Agent: Once the item is received and inspected at the warehouse, the refund is processed within 5-7 business days to your original payment method. I'll share the return tracking number as soon as pickup is scheduled.
+Customer: Perfect, thanks for the clear answer.
+Agent: You're welcome. To recap: prepaid label to your email, original packaging preferred, refund within 5-7 business days of receipt. Thanks for chatting with us, Deepa, take care.",chat,Yes
+CALL-1004,2026-08-19,Sara,device,inbound,11,"Agent: Good morning, device support, Sara speaking. How may I help you?
+Customer: Hi, I just bought your smart thermostat and I can't get it to connect to my wifi.
+Agent: I'm sorry the setup isn't going smoothly, let's get that sorted. Can I confirm the account name and registered email, please?
+Customer: Arjun Menon, arjun.m@example.com.
+Agent: Thank you, Arjun, verified. I'm logging this as a device setup request, and I'm emailing you our basic troubleshooting guide now, which is our standard first step.
+Customer: Okay, what do we try after that?
+Agent: Let's confirm your router is broadcasting a 2.4 gigahertz band, and I'll take you through splitting the dual band step by step.
+Customer: That did it, it's connected now.
+Agent: Excellent. For future reference, setup support runs Monday to Saturday, 9 am to 6 pm, and as a premium customer you can also request a remote screen share.
+Customer: Good to know. What if it had been a fault in the unit?
+Agent: A hardware issue beyond software support gets escalated to the repair team. To summarise: thermostat connected, guide in your inbox. Thank you for calling, Arjun, have a wonderful day.",phone,Yes
+CALL-1005,2026-08-18,James,escalation,inbound,12,"Agent: Good afternoon, thank you for calling support, my name is James. How can I help you?
+Customer: I've called twice about my refund and nothing has happened. I want this dealt with properly.
+Agent: I completely understand your frustration, and I'm sorry you've had to call back. May I have your order ID and account name so I can review the history?
+Customer: ORD-7741, Nisha Rao.
+Agent: Thank you, Nisha, verified. I can see two previous contacts with no resolution, which meets our escalation trigger, so I'm raising a formal escalation.
+Customer: What does that actually mean for me?
+Agent: The case is assigned to a senior agent within 2 hours, and they own it until closure. You'll receive an email and an SMS with the escalation reference and their name.
+Customer: How long until it's resolved?
+Agent: The escalation team works to a 24-hour resolution SLA. If they can't resolve it in that window, they will call you with a status update and a committed date.
+Customer: Alright, that sounds better than what I've had so far.
+Agent: I appreciate your patience. To summarise: escalation raised on ORD-7741, senior agent within 2 hours, email and SMS confirmation, 24-hour resolution target. Thank you for calling, Nisha, have a good day.",phone,Yes
+CALL-1006,2026-08-17,Rahul,repair,outbound,5,"Agent: So about your microwave, the technician says the magnetron is gone.
+Customer: Um, hello? Who is this?
+Agent: Service team. Could you confirm your ticket number and the name on the account?
+Customer: RPR-3390, Ismail Khan.
+Agent: Thanks, that's verified. The part has to come from the manufacturer, so this is a complex repair, up to 14 business days.
+Customer: That's a long time. Will I get updates?
+Agent: You'll get an SMS at each stage: received, diagnosis, repair, quality check and dispatch.
+Customer: And if it takes longer than 14 days?
+Agent: Then you're entitled to a temporary replacement unit at no cost until yours is back.
+Customer: Fine, please go ahead.
+Agent: It's logged, Ismail. To summarise, complex repair up to 14 business days with SMS updates. Thanks for your time and have a good day.",phone,No
+CALL-1007,2026-08-16,Priya,replacement,inbound,8,"Agent: Hi, thanks for reaching out to support chat, I'm Priya. What can I do for you today?
+Customer: My electric kettle stopped heating after three weeks.
+Agent: That's disappointing so soon after purchase, I'm sorry about that. Could you share your order ID and the name on the order?
+Customer: ORD-9302, Karan Bhatt.
+Agent: Thank you, Karan, verified. I'm raising this as a replacement request. The purchase was 21 days ago, so you're well inside the 90-day window and your invoice on file covers proof of purchase.
+Customer: Anything I need to send back?
+Agent: Yes, the faulty kettle goes back on the prepaid label we'll email you, and the replacement dispatches within 3-5 business days.
+Customer: And if the new one fails too?
+Agent: Only one replacement is allowed per order, so we'd route that to the repair team under the repair SLA. I'll note it on the ticket so there are no surprises.
+Customer: Fair enough, thanks for being upfront.
+Agent: Of course. Summary: replacement approved on ORD-9302, dispatch in 3-5 business days, prepaid return label by email. Thanks for chatting with us, Karan, have a great day.",chat,Yes
+CALL-1008,2026-08-16,Amit,device,inbound,10,"Agent: Good morning, thank you for writing in to device support. My name is Amit and I'll be handling your case.
+Customer: Hello, my wireless printer keeps dropping off the network after every firmware update.
+Agent: Thank you for the detail, a drop after every update points to a configuration issue rather than a fault. Could you confirm the account name and registered email so I can verify the record?
+Customer: Ritu Shah, ritu.shah@example.com.
+Agent: Verified, thank you Ritu. I'm logging this as a device support request and I've attached our basic troubleshooting guide, which we send on first contact.
+Customer: Which part should I start with?
+Agent: Steps 3 to 5, which cover re-registering the printer after a firmware update. If those don't resolve it, we can arrange a remote screen share, available on your premium plan.
+Customer: And if it turns out to be the wifi card itself?
+Agent: Then it's a hardware issue beyond software support, and I'd escalate it to the repair team, after which it follows the repair SLA.
+Customer: That's clear, I'll write back tomorrow.
+Agent: To summarise: guide attached, try steps 3 to 5, reply here and I'll book a screen share. Our hours are Monday to Saturday, 9 am to 6 pm. Thank you for contacting us, Ritu, have a good day.",email,Yes
+CALL-1009,2026-08-15,Sara,logistics,inbound,7,"Agent: Good afternoon, returns and logistics, Sara speaking. How can I help you?
+Customer: Hi, I shipped a return two weeks ago and there's still no refund.
+Agent: I'm sorry for the wait, let me check that right away. May I have your order ID and the name on the account?
+Customer: ORD-6688, Farhan Ali.
+Agent: Thank you, Farhan, verified. I'm handling this as a logistics query, and I can see the return was received and has passed inspection.
+Customer: So where is my money?
+Agent: Refunds are processed within 5-7 business days of receipt, and yours was received four business days ago, so it's still inside the window and will go to your original payment method.
+Customer: And if it had gone missing on the way?
+Agent: Lost-in-transit claims can be raised within 30 days of dispatch, so you'd still have been covered. I'm resending your return tracking number by SMS now.
+Customer: Good to know, thanks.
+Agent: To recap: return received and inspected, refund due within the 5-7 business day window, tracking resent. Thank you for calling, Farhan, have a lovely day.",phone,Yes
+CALL-1010,2026-08-14,James,replacement,inbound,6,"Agent: Good morning, thank you for calling support, James speaking. How can I help you?
+Customer: Hi, my speaker arrived with a dented grille and I want it replaced.
+Agent: I'm sorry it reached you damaged. I'll raise this as a replacement request.
+Customer: Don't you need my order number?
+Agent: It's fine, I'll just log it under a damaged-on-arrival note.
+Customer: If you're sure. When would it arrive?
+Agent: Replacements are dispatched within 3-5 business days once approved, and the faulty unit goes back on a prepaid label.
+Customer: And it's within the return period, right?
+Agent: Based on what you've told me you're inside the 90-day window, so that's fine.
+Customer: Great, thank you.
+Agent: To summarise, a replacement speaker is being arranged, dispatch in 3-5 business days. Thank you for calling and have a good day.",phone,No
+CALL-1011,2026-08-13,Rahul,escalation,inbound,13,"Agent: Good morning, customer support, this is Rahul. How may I assist you today?
+Customer: I'd like to speak to a manager. My repair has dragged on for three weeks.
+Agent: I'm sorry it's taken this long, and I'll make sure it's handled properly. May I have your repair ticket number and the account name first?
+Customer: Ticket RPR-4412, account is Leela Iyer.
+Agent: Thank you, Leela, verified. The unit has been at the service centre for 19 business days, past our 7-day standard SLA.
+Customer: Exactly, and nobody has called me.
+Agent: You're right to be upset. A manager request and an SLA breach are both escalation triggers, so I'm raising a formal escalation now. A senior agent is assigned within 2 hours and will own the case until closure.
+Customer: How will I know who it is?
+Agent: You'll get an email and an SMS with the escalation reference and their name, and the team works to a 24-hour resolution SLA. Because the repair SLA was breached, you're also entitled to a free temporary unit, which I'm arranging.
+Customer: I wasn't told that before. Thank you.
+Agent: I apologise it wasn't offered earlier. To summarise: escalation raised on RPR-4412, senior agent within 2 hours, 24-hour resolution target, temporary unit on its way. Thank you for your patience, Leela, have a good day.",phone,Yes
+CALL-1012,2026-08-12,Priya,device,outbound,9,"Agent: Good afternoon, this is Priya calling from device support about the setup case you logged. Is now a good time?
+Customer: Yes, thanks for calling back.
+Agent: Before we continue, could you confirm your account name and the last four digits of your registered mobile number?
+Customer: Vikram Desai, and the number ends 7702.
+Agent: Thank you, Vikram, verified. I'm following up on your smart lock setup request, and I understand the app still won't pair with the lock.
+Customer: That's right, I tried the first two steps of the guide you emailed.
+Agent: Good, that's the standard first-contact material, so let's go further. As a premium customer you're eligible for remote support, so I can screen share and do this with you now.
+Customer: That would be much easier. Oh, it's paired now.
+Agent: Excellent. Had the bluetooth module itself been faulty, that's hardware and I'd have escalated it to the repair team.
+Customer: Understood, thanks for following up.
+Agent: My pleasure. To summarise: pairing resolved over screen share, guide in your inbox, support available Monday to Saturday 9 am to 6 pm. Have a great day, Vikram.",phone,Yes
+CALL-1013,2026-08-11,Amit,repair,inbound,8,"Agent: Good morning, service desk, Amit speaking. How can I help you?
+Customer: My laptop screen flickers constantly, I need it repaired.
+Agent: I'm sorry to hear that, flickering usually means a display cable or panel issue. Could you confirm your account name and order ID?
+Customer: Rohit Sharma, order ORD-5521.
+Agent: Thank you, Rohit, verified. I'm booking this as a repair request, acknowledged within 24 hours with a ticket number.
+Customer: How long does it usually take?
+Agent: A standard repair is 7 business days from when the unit reaches the service centre, with an SMS update at each stage.
+Customer: And if the panel has to be ordered?
+Agent: Then it's a complex repair, up to 14 business days.
+Customer: Alright, please book it. Should I back up my data first?
+Agent: Yeah, it's logged.
+Customer: Hello? Are you still there? [call ended]",phone,No
+CALL-1014,2026-08-10,Sara,replacement,inbound,7,"Agent: Hello, welcome to support chat, my name is Sara. How can I help you today?
+Customer: The screen on my e-reader has a dead pixel line right out of the box.
+Agent: I'm sorry you received it in that condition. May I have your order ID and the name on the account to verify?
+Customer: ORD-8890, name is Tanvi Joshi.
+Agent: Thank you, Tanvi, verified. I'm raising this as a replacement request, and the order was placed 12 days ago so it's well within the 90-day window, with your invoice on file as proof of purchase.
+Customer: Do I need to send photos?
+Agent: A photo of the screen helps the warehouse but isn't a blocker. The replacement dispatches within 3-5 business days.
+Customer: And the faulty one?
+Agent: Send it back with the prepaid return label we'll email you, in the original packaging if you still have it. Note that one replacement per order is the limit.
+Customer: I have the box, thank you.
+Agent: Great. Summary: replacement approved on ORD-8890, dispatch in 3-5 business days, prepaid label by email. Thanks for chatting with us, Tanvi, have a lovely day.",chat,Yes
+CALL-1015,2026-08-09,James,logistics,inbound,6,"Agent: Good morning, thank you for writing to our returns team. My name is James and I'll be assisting you.
+Customer: Hello, my return has shown in transit for 26 days and I'm worried it's lost.
+Agent: I understand the concern, 26 days is well beyond normal transit time. Could you confirm your order ID and the name on the account?
+Customer: ORD-7003, Ananya Pillai.
+Agent: Thank you, Ananya, verified. I'm handling this as a logistics case, and lost-in-transit claims can be raised within 30 days of dispatch, so at day 26 you're still inside the window.
+Customer: Good, I was worried I'd left it too late.
+Agent: You haven't, I'm raising the claim today and resending your return tracking number for your records.
+Customer: Will I still get the refund?
+Agent: Yes. Once the claim is settled the refund is processed within 5-7 business days, back to your original payment method.
+Customer: Thank you for sorting this out.
+Agent: To summarise: claim raised on ORD-7003 inside the 30-day window, tracking resent, refund within 5-7 business days of settlement. Thank you for contacting us, Ananya, have a good day.",email,Yes
+CALL-1016,2026-08-08,Rahul,device,inbound,5,"Agent: Hi, support chat, Rahul here. What's the issue?
+Customer: My router keeps disconnecting every evening around 8pm.
+Agent: Can I get your account name and registered email please?
+Customer: Neha Kulkarni, neha.k@example.com.
+Agent: Right, found it. Honestly this is almost always the customer's own wiring, not our device.
+Customer: I've checked the cables twice, they're fine.
+Agent: Everyone says that. Just restart it and stop overthinking it.
+Customer: I've restarted it four times already.
+Agent: Then it's your internet provider's problem, not ours. I'm logging it as a device support query and sending the troubleshooting guide, read it properly this time.
+Customer: That's a bit rude.
+Agent: I'm just telling you how it is. Anything else? No? Chat closed.",chat,No
+CALL-1017,2026-08-07,Priya,logistics,inbound,8,"Agent: Good morning, logistics support, Priya speaking. How may I help you?
+Customer: I need to return a jacket but I threw away the box it came in.
+Agent: That's not a problem at all, I can guide you. May I confirm your order ID and account name first?
+Customer: ORD-9410, Imran Qureshi.
+Agent: Thank you, Imran, verified. I'm logging this as a returns and logistics request. Original packaging is preferred, but where it isn't available please use rigid packaging with adequate padding.
+Customer: A sturdy carton would do?
+Agent: Perfectly. Please use the prepaid return label I'm emailing you now rather than your own courier, as self-paid charges aren't reimbursed once a prepaid label is issued.
+Customer: Understood. When do I get the tracking number?
+Agent: As soon as pickup is scheduled, and I'll confirm it in the follow-up email. The refund follows within 5-7 business days of the item being received and inspected.
+Customer: That's clear, thank you.
+Agent: To summarise: prepaid label emailed, rigid packaging with padding, tracking on pickup, refund within 5-7 business days of receipt. Thank you for calling, Imran, have a great day.",phone,Yes
+CALL-1018,2026-08-06,Amit,escalation,outbound,11,"Agent: Good afternoon, this is Amit from the customer support team, calling about the case you raised. Is this a convenient time?
+Customer: Yes, go ahead.
+Agent: Thank you. For security, could you confirm your account name and your order ID?
+Customer: Deepak Rana, ORD-6120.
+Agent: Verified, thank you Deepak. I'm calling because your issue is still unresolved after two contacts, which triggers our escalation policy, so I've raised a formal escalation.
+Customer: I'd almost given up, honestly. What will be different?
+Agent: A senior agent is assigned within 2 hours and owns the case end to end until closure, rather than it moving between agents.
+Customer: And if they can't fix it quickly?
+Agent: They work to a 24-hour resolution SLA, and if that isn't enough they'll call you with a status update and a committed date. You'll get an email and SMS with the escalation reference and their name.
+Customer: Thank you for calling me proactively.
+Agent: Of course. To summarise: escalation raised on ORD-6120, senior agent within 2 hours, email and SMS confirmation, 24-hour resolution target. Thank you for your patience, Deepak, have a good day.",phone,Yes
+CALL-1019,2026-08-05,Sara,repair,inbound,10,"Agent: Good morning, repair services, this is Sara. How can I help you today?
+Customer: My coffee machine has stopped pumping water completely.
+Agent: I'm sorry to hear that, that sounds like a pump or blockage issue. Could you confirm the account name and registered mobile number for verification?
+Customer: Priyanka Ghosh, number ends 3318.
+Agent: Thank you, Priyanka, verified. I'm logging this as a repair request, acknowledged within 24 hours with a repair ticket number.
+Customer: How long will it take?
+Agent: A standard repair is completed within 7 business days from the date we receive the unit at the service centre.
+Customer: What if the pump needs replacing?
+Agent: If a part has to be sourced from the manufacturer it becomes a complex repair, up to 14 business days. Either way you'll get an SMS at each stage, and if we exceed the SLA you're entitled to a free temporary replacement.
+Customer: That's very clear, thank you.
+Agent: To summarise: repair ticket raised, acknowledgement within 24 hours, 7 business day standard SLA, SMS updates throughout. Thank you for calling, Priyanka, have a lovely day.",phone,Yes
+CALL-1020,2026-08-04,James,device,inbound,4,"Agent: Yeah, what's the problem with the device?
+Customer: Hi, my smart TV won't install the latest firmware update.
+Agent: Firmware issue. Have you tried a factory reset?
+Customer: Not yet. Don't you need my account details?
+Agent: Not really, this is generic stuff.
+Customer: Okay. Will a reset erase my apps?
+Agent: It will, you'd have to sign in again afterwards. You can also try a wired connection instead of wifi, updates fail less often that way.
+Customer: And if none of that works?
+Agent: If it's a hardware fault we escalate it to the repair team and it follows the repair SLA. I'm emailing you the troubleshooting guide too.
+Customer: Understood.
+Agent: Alright. To recap, try the wired update first, guide is in your email, call back if it persists. Thanks and have a good day.",phone,No
+CALL-1021,2026-08-03,Rahul,logistics,outbound,7,"Agent: Good afternoon, this is Rahul from the returns team, calling about the pickup scheduled for your order. Is now a good time?
+Customer: Yes, that's fine.
+Agent: Thank you. Could you confirm your account name and order ID for security?
+Customer: Sameer Kapoor, ORD-8477.
+Agent: Verified, thank you Sameer. Your pickup is rescheduled for tomorrow between 10 am and 2 pm, and your return tracking number is RTN-33920, which I'm sending by SMS now.
+Customer: Should I use my own courier instead? It'd be faster.
+Agent: I'd advise against it. Please use the prepaid label we emailed, since self-paid courier charges aren't reimbursed when a prepaid label has been issued.
+Customer: Fair enough. What about packing?
+Agent: Original packaging where possible, including accessories. The refund follows within 5-7 business days of the item being received and inspected at the warehouse.
+Customer: Perfect, thank you.
+Agent: To summarise: pickup tomorrow 10 am to 2 pm, tracking RTN-33920 by SMS, prepaid label, refund within 5-7 business days of receipt. Thank you for your time, Sameer, have a great day.",phone,Yes
+CALL-1022,2026-08-02,Priya,escalation,inbound,6,"Agent: Good morning, support desk, Priya speaking. How can I help?
+Customer: This is my third call about the same faulty oven. I want a manager.
+Agent: Can I have your account name and ticket number?
+Customer: Suresh Nair, ticket ESC-2201.
+Agent: Okay, I see it. Look, calling repeatedly doesn't make it move any faster.
+Customer: I'm calling because nobody has fixed it.
+Agent: That's just how the process works, you'll have to be patient like everyone else.
+Customer: You're supposed to escalate this. I asked for a manager.
+Agent: Fine, I'll put it through as an escalation. A senior agent picks it up within 2 hours.
+Customer: And then what? Can you confirm the resolution time?
+Agent: I've done my part, it's out of my hands now.
+Customer: Hello?",phone,No
+CALL-1023,2026-08-01,Amit,replacement,inbound,8,"Agent: Good morning, thank you for calling support, my name is Amit. How may I help you?
+Customer: The vacuum cleaner I ordered has a motor that won't start at all.
+Agent: I'm sorry to hear that, a dead motor out of the box isn't acceptable. May I have your order ID and the name on the account?
+Customer: ORD-9088, Kavita Menon.
+Agent: Thank you, Kavita, verified. I'm classifying this as a replacement request. The purchase was 34 days ago, inside our 90-day window, and your invoice is on file as proof of purchase.
+Customer: Is there any catch?
+Agent: Two things to note: misuse or liquid damage wouldn't be covered, which doesn't apply here, and only one replacement is allowed per order.
+Customer: That's reasonable. What's the timeline?
+Agent: The replacement is dispatched within 3-5 business days and you'll receive a dispatch confirmation with a tracking number.
+Customer: Thank you, that was straightforward.
+Agent: Glad to help. To summarise: replacement approved on ORD-9088, dispatch in 3-5 business days, tracking to follow. Thank you for calling, Kavita, have a wonderful day.",phone,Yes
+CALL-1024,2026-07-31,Sara,device,inbound,12,"Agent: Good afternoon, thank you for contacting device support. My name is Sara and I'll be handling your request.
+Customer: Hi, I can't get my new security camera to record to the cloud.
+Agent: Thank you for explaining, cloud recording failures are usually an account-linking step rather than a fault. Could you confirm your account name and registered email?
+Customer: Manish Trivedi, manish.t@example.com.
+Agent: Verified, thank you Manish. I'm logging this as a device setup request and I've attached our basic troubleshooting guide, which we send on first contact. Section 4 covers linking the camera to your cloud account.
+Customer: I'll go through it, but I'm not very technical.
+Agent: That's completely fine. As a premium customer you can have a remote screen share, and our support hours are Monday to Saturday, 9 am to 6 pm.
+Customer: Let's say Thursday at 11 am.
+Agent: Booked for Thursday at 11 am. If the camera's storage module itself is faulty, that's hardware and I'll escalate it to the repair team, which then follows the repair SLA.
+Customer: Understood, thank you.
+Agent: To summarise: guide attached, section 4 first, screen share Thursday 11 am, repair escalation if it proves to be hardware. Thank you for contacting us, Manish, have a good day.",email,Yes
+CALL-1025,2026-07-30,James,repair,inbound,9,"Agent: Hello, welcome to service chat, this is James. How can I help you today?
+Customer: My headphones have a crackling right driver, they're 5 months old.
+Agent: Thanks for the detail, I'm sorry they're not working properly. May I have your order ID and the account name for verification?
+Customer: ORD-7256, Aditi Rao.
+Agent: Thank you, Aditi, verified. As the purchase is past 90 days this goes through as a repair rather than a replacement, acknowledged within 24 hours with a ticket number.
+Customer: I was hoping for a new pair, but I understand. How long is the repair?
+Agent: Standard repairs are done within 7 business days of the unit reaching the service centre. If a driver has to come from the manufacturer it's complex, up to 14 business days.
+Customer: Will I be left guessing?
+Agent: Not at all, you'll get an SMS at every stage, and if we exceed the SLA you're entitled to a free temporary replacement.
+Customer: That's fair, please book it.
+Agent: Booked. To summarise: repair ticket raised on ORD-7256, 7 business day standard SLA, SMS updates throughout. Thanks for chatting with us, Aditi, have a great day.",chat,Yes
+CALL-1026,2026-07-29,Rahul,replacement,inbound,6,"Agent: Good afternoon, customer support, Rahul speaking. How can I help you?
+Customer: My blender broke after I dropped it. Can I get a replacement?
+Agent: Sure, no problem at all, I'll arrange a replacement for you.
+Customer: Don't you need my order details?
+Agent: Nah, we can sort it without that.
+Customer: It was my fault though, I dropped it off the counter.
+Agent: Doesn't matter, I'll put it through as defective.
+Customer: And how long does it take?
+Agent: I'll get it out to you by tomorrow, I'll push it through as urgent.
+Customer: That's faster than I expected.
+Agent: We look after our customers. It's all arranged, thanks for calling and have a good day.",phone,No
+CALL-1027,2026-07-28,Priya,repair,inbound,11,"Agent: Good morning, repair services, this is Priya. How may I assist you?
+Customer: My air purifier shuts down randomly after ten minutes of running.
+Agent: I'm sorry about that, random shutdowns usually point to a sensor or power board issue. Could you confirm your account name and order ID?
+Customer: Gaurav Sethi, ORD-6842.
+Agent: Thank you, Gaurav, verified. I'm registering this as a repair request, which is acknowledged within 24 hours with a ticket number.
+Customer: Should I try anything myself first?
+Agent: You could clear the filter sensor, but from your description I'd rather a technician looked at it. A standard repair is 7 business days from receipt at the service centre.
+Customer: And a complex one?
+Agent: Up to 14 business days if a board has to come from the manufacturer, and I'll tell you the moment it's reclassified. You'll get an SMS at each stage, and an SLA overrun entitles you to a free temporary unit.
+Customer: That's good to know.
+Agent: To summarise: repair ticket raised on ORD-6842, 7 business day standard SLA, up to 14 if complex, SMS updates at every stage. Thank you for calling, Gaurav, have a great day.",phone,Yes
+CALL-1028,2026-07-27,Amit,logistics,inbound,5,"Agent: What's your order number?
+Customer: Hi... it's ORD-7788, name Shalini Dubey.
+Agent: Right. So what do you want?
+Customer: I want to return a lamp, it's the wrong colour.
+Agent: You should have checked the listing photos before ordering.
+Customer: The photo looked beige, not grey.
+Agent: That's on you, honestly. Anyway, you get a prepaid label by email, use that, and put it in the original box.
+Customer: And the refund?
+Agent: 5-7 business days after the warehouse gets it. It's all standard, it's on the website.
+Customer: Okay, thank you for the information.
+Agent: Right, so that's your return logged. Anything else, or are we done here? Bye then.",chat,No
+CALL-1029,2026-07-26,Sara,escalation,outbound,7,"Agent: Good afternoon, this is Sara from customer support, calling about your open case. Is now a good time?
+Customer: Yes, thank you for calling.
+Agent: Could you confirm your account name and ticket number for security, please?
+Customer: Harish Bhatia, ticket ESC-2318.
+Agent: Thank you, Harish, verified. I'm calling because your issue is unresolved after two contacts, which triggers an escalation, and I've raised it now.
+Customer: I'm glad someone noticed. Will I be told who handles it?
+Agent: Yes, a senior agent is assigned within 2 hours and you'll get an email and SMS with the reference and their name.
+Customer: And when should I expect a resolution?
+Agent: The escalation team works to a 24-hour resolution SLA from assignment.
+Customer: Okay. Is there anything I need to do in the meantime?
+Agent: No, nothing from your side. Right, I have another call waiting.
+Customer: Oh, alright then, bye?",phone,No
+CALL-1030,2026-07-25,James,replacement,inbound,5,"Agent: Hi, support chat, James here. What do you need?
+Customer: My toaster arrived with a broken lever, I want a replacement.
+Agent: Are you sure you didn't force it? People break those all the time.
+Customer: It was like that in the box.
+Agent: If you say so. I'll note it as damaged on arrival.
+Customer: Do you want my order ID?
+Agent: Not bothered, I'll just log it as a general damage report.
+Customer: Won't that cause problems later?
+Agent: It's fine, stop worrying about it.
+Customer: When will the replacement be dispatched, and is there anything else I need to do?
+Agent: [agent left the chat]",chat,No
+CALL-1031,2026-08-23,Priya,replacement,inbound,8,"Agent: Good morning, thank you for calling customer support, this is Priya. How may I help you?
+Customer: The air fryer I ordered has a handle that snapped the first time I opened it.
+Agent: I'm sorry to hear that, a handle shouldn't fail on first use. May I have your order ID and the name on the account?
+Customer: ORD-9521, Rekha Menon.
+Agent: Thank you, Rekha, verified. I'm logging this as a replacement request, and at 16 days since purchase you're comfortably inside the 90-day window.
+Customer: Do I need to send you the receipt?
+Agent: No, your invoice is on file so proof of purchase is covered. The replacement dispatches within 3-5 business days with a tracking number.
+Customer: Is there a limit on this?
+Agent: One replacement per order is the limit, and misuse damage isn't covered, though a first-use failure clearly isn't misuse.
+Customer: That's fair, thank you.
+Agent: To summarise: replacement approved on ORD-9521, dispatch in 3-5 business days. Thank you for calling, Rekha, have a great day.",phone,Yes
+CALL-1032,2026-08-22,Sara,repair,inbound,6,"Agent: Right, what's wrong with the unit?
+Customer: Hello? My dishwasher isn't draining at the end of the cycle.
+Agent: Can you confirm your account name and order ID?
+Customer: Yes, Bhavna Sinha, ORD-6931.
+Agent: Verified. That's a pump or drain hose issue, so I'm logging it as a repair request.
+Customer: How quickly does that move?
+Agent: You'll get an acknowledgement with a ticket number within 24 hours, and a standard repair is 7 business days from receipt at the service centre.
+Customer: And if it's more involved than that?
+Agent: Complex repairs needing manufacturer parts run up to 14 business days, with an SMS update at each stage.
+Customer: What if you overrun?
+Agent: Then you're entitled to a free temporary replacement. To summarise, repair booked on ORD-6931, 7 business day SLA, SMS updates throughout. Thank you for calling, Bhavna, have a good day.",phone,No
+CALL-1033,2026-08-21,James,logistics,inbound,7,"Agent: Hello and welcome to support chat, my name is James. How can I help you today?
+Customer: I got the wrong size shoes and need to send them back.
+Agent: I'm sorry about the mix-up, let's get it returned. May I have your order ID and the email on the account?
+Customer: ORD-8214, ravi.p@example.com.
+Agent: Thank you, Ravi, that matches. I'm logging this as a returns and logistics request, and I'm emailing your prepaid return label now.
+Customer: So I don't pay for shipping?
+Agent: Correct, the prepaid label covers it. Please don't book your own courier, as self-paid charges aren't reimbursed once a label has been issued.
+Customer: Understood. Do I need the original box?
+Agent: Original packaging where possible, with everything that came with it. I'll share the return tracking number as soon as pickup is scheduled.
+Customer: And when do I see the refund?
+Agent: Within 5-7 business days of the item being received and inspected, back to your original payment method. To summarise: prepaid label emailed, original box preferred, refund within 5-7 business days. Thanks for chatting, Ravi, have a great day.",chat,Yes
+CALL-1034,2026-08-20,Rahul,device,inbound,10,"Agent: Good afternoon, device support, Rahul speaking. How may I help you?
+Customer: My robot vacuum won't hold its wifi connection to the app.
+Agent: I'm sorry it's dropping out, that's usually a network handover issue rather than a fault. Could you confirm your account name and registered email?
+Customer: Sunita Rao, sunita.rao@example.com.
+Agent: Thank you, Sunita, verified. I'm logging this as a device support request and emailing you our basic troubleshooting guide, which is our standard first contact material.
+Customer: What should I check while I wait for it?
+Agent: Whether your router is pushing the vacuum between two bands. Section 2 of the guide walks through pinning it to 2.4 gigahertz.
+Customer: That sounds like something I can do.
+Agent: If not, you're on our premium plan so I can book a remote screen share, and our hours are Monday to Saturday, 9 am to 6 pm.
+Customer: I'll try it myself first. What if the wifi chip is faulty?
+Agent: Then it's hardware beyond software support and I'd escalate it to the repair team, which follows the repair SLA. To summarise: guide emailed, try section 2, call back and I'll book a screen share. Thank you, Sunita, have a good day.",phone,Yes
+CALL-1035,2026-08-19,Amit,escalation,inbound,9,"Agent: Good morning, customer support, Amit speaking. How can I help you today?
+Customer: This is my third call about a refund that never arrived. I want it escalated.
+Agent: I'm sorry you've had to call back this many times, that's genuinely frustrating.
+Customer: Do you want my order number to look it up?
+Agent: No need, I'll raise the escalation on what you've told me.
+Customer: Alright. What happens now?
+Agent: Unresolved after two contacts is an escalation trigger, so a senior agent is assigned within 2 hours and owns it until closure.
+Customer: How do I know it's really been raised?
+Agent: You'll get an email and an SMS with the escalation reference and the senior agent's name.
+Customer: And a resolution?
+Agent: Within 24 hours, or they'll call you with a committed date. To summarise: escalation raised, senior agent within 2 hours, email and SMS to follow. Thank you for your patience, have a good day.",phone,No
+CALL-1036,2026-08-18,Priya,repair,inbound,11,"Agent: Good morning, thank you for writing to repair services. My name is Priya and I'll be handling your case.
+Customer: Hello, my treadmill's incline motor has stopped responding to the console.
+Agent: Thank you for the detail, an unresponsive incline motor is a service-centre job rather than something to troubleshoot at home. Could you confirm your account name and order ID?
+Customer: Devendra Iyer, ORD-5470.
+Agent: Verified, thank you Devendra. I'm registering this as a repair request, and you'll have an acknowledgement with a ticket number within 24 hours.
+Customer: What's the expected turnaround?
+Agent: A standard repair is completed within 7 business days from when we receive the unit at the service centre.
+Customer: The motor may need to be ordered in, though.
+Agent: If a part has to come from the manufacturer it's reclassified as a complex repair, up to 14 business days, and I'll write to you the moment that happens.
+Customer: Will I be kept informed in between?
+Agent: You'll get an SMS at each stage, and if we exceed the SLA you're entitled to a free temporary unit. To summarise: repair ticket raised on ORD-5470, 7 business day standard SLA, SMS updates throughout. Thank you for contacting us, Devendra, have a good day.",email,Yes
+CALL-1037,2026-08-17,Sara,logistics,outbound,6,"Agent: Good afternoon, this is Sara from the returns team, calling about the return on your recent order. Is now a good time?
+Customer: Yes, that's fine.
+Agent: Thank you. Could you confirm your account name and order ID for security?
+Customer: Nandita Bose, ORD-7712.
+Agent: Verified, thank you Nandita. I'm calling because the courier attempted pickup twice and couldn't reach you.
+Customer: I was out both times. Can it be rebooked?
+Agent: Already done, for Friday between 9 am and 1 pm. Your return tracking number is RTN-41088 and I'm sending it by SMS now.
+Customer: Do I need to print anything?
+Agent: Just the prepaid return label from your email, and pack the item in its original box where possible.
+Customer: And the refund timing?
+Agent: Within 5-7 business days of the item being received and inspected at the warehouse. To summarise: pickup Friday 9 am to 1 pm, tracking RTN-41088 by SMS, refund within 5-7 business days of receipt. Thank you for your time, Nandita, have a great day.",phone,Yes
+CALL-1038,2026-08-16,James,device,inbound,5,"Agent: Hello, welcome to device support chat, this is James. How can I help you today?
+Customer: My smart doorbell keeps showing offline in the app even though the light is on.
+Agent: I'm sorry about that, an offline status with the light on usually means the cloud link has dropped. Could you confirm your account name and registered email?
+Customer: Aakash Nair, aakash.n@example.com.
+Agent: Thank you, Aakash, verified. I'm logging this as a device support request and sending you our basic troubleshooting guide.
+Customer: Which step should I start with?
+Agent: Step 6, re-linking the doorbell to your cloud account.
+Customer: Okay, trying it now. It's asking me for a pairing code I don't have.
+Agent: It's on the back plate of the unit.
+Customer: I've taken it down, but where exactly? And should I book that screen share you mentioned?
+Agent: Agent has ended the chat.",chat,No
+CALL-1039,2026-08-15,Rahul,escalation,inbound,12,"Agent: Good morning, thank you for calling customer support, this is Rahul. How may I assist you?
+Customer: My replacement was promised two weeks ago and it still hasn't shipped. Put me through to a manager.
+Agent: I'm sorry, a two-week wait on a dispatch is well outside what we commit to. May I have your order ID and account name so I can review the case?
+Customer: ORD-6377, Anil Kapadia.
+Agent: Thank you, Anil, verified. The replacement was approved 14 days ago against a 3-5 business day dispatch, so that's an SLA breach, and you've also asked for a manager.
+Customer: So what does that get me?
+Agent: Both are escalation triggers, so I'm raising a formal escalation now. A senior agent is assigned within 2 hours and owns the case until closure.
+Customer: And I'll hear from them how?
+Agent: By email and SMS, with the escalation reference and the agent's name. They work to a 24-hour resolution SLA, or they'll call you with a committed date.
+Customer: That's what I wanted to hear.
+Agent: To summarise: escalation raised on ORD-6377 for SLA breach and manager request, senior agent within 2 hours, 24-hour resolution target. Thank you for your patience, Anil, have a good day.",phone,Yes
+CALL-1040,2026-08-14,Amit,replacement,inbound,7,"Agent: Hello, welcome to support chat, this is Amit. How can I help you today?
+Customer: My wireless mouse died after eight days, it won't power on at all.
+Agent: I'm sorry it failed that quickly. May I have your order ID and the name on the account?
+Customer: ORD-9740, Pooja Malhotra.
+Agent: Thank you, Pooja, verified. I'm raising this as a replacement request, and eight days is well inside our 90-day replacement window with your invoice on file.
+Customer: Do I have to return the old one?
+Agent: Yes, on the prepaid return label I'm emailing you, in the original packaging if you still have it.
+Customer: I do. When will the new one arrive?
+Agent: It's dispatched within 3-5 business days and you'll get a tracking number on dispatch.
+Customer: And if this one fails too?
+Agent: Only one replacement per order is allowed, so that would move to the repair team under the repair SLA. To summarise: replacement approved on ORD-9740, dispatch in 3-5 business days, prepaid label by email. Thanks for chatting with us, Pooja, have a great day.",chat,Yes
+CALL-1041,2026-08-13,Priya,device,inbound,5,"Agent: Good morning, device support, Priya speaking. How can I help?
+Customer: My tablet won't charge past 40 percent no matter how long I leave it plugged in.
+Agent: Can I have your account name and order ID?
+Customer: Girish Pandit, ORD-5188.
+Agent: Found it. You're probably using a cheap third-party charger, aren't you?
+Customer: No, it's the one that came in the box.
+Agent: That's what everyone claims. It's a battery calibration thing, just drain it fully and stop worrying about it.
+Customer: I've already tried that twice.
+Agent: Then you clearly didn't do it properly. I'm emailing you the troubleshooting guide, actually read it this time.
+Customer: There's no need to speak to me like that.
+Agent: I'm logging it as a device support query. If it turns out to be the battery it goes to the repair team. Anything else? Right, goodbye.",phone,No
+CALL-1042,2026-08-12,Sara,escalation,inbound,11,"Agent: Good afternoon, thank you for calling support, my name is Sara. How can I help you?
+Customer: I've contacted you twice about a damaged delivery and nothing has been done.
+Agent: I'm sorry you've had to chase this, twice is twice too many. May I have your order ID and the name on the account?
+Customer: ORD-7455, Meenal Joshi.
+Agent: Thank you, Meenal, verified. I can see both previous contacts closed without resolution, which meets our escalation trigger, so I'm raising a formal escalation now.
+Customer: What changes once it's escalated?
+Agent: A senior agent takes ownership within 2 hours and stays with the case until it's closed, instead of it passing between agents.
+Customer: How will I know who has it?
+Agent: You'll receive an email and an SMS with the escalation reference number and the senior agent's name.
+Customer: And how long should I expect to wait?
+Agent: The escalation team works to a 24-hour resolution SLA, and if that isn't achievable they'll call you with a status update and a committed date. To summarise: escalation raised on ORD-7455, senior agent within 2 hours, email and SMS confirmation, 24-hour target. Thank you for your patience, Meenal, have a good day.",phone,Yes
+CALL-1043,2026-08-11,James,repair,inbound,10,"Agent: Good morning, repair services, James speaking. How may I help you today?
+Customer: The touchscreen on my oven has gone completely unresponsive.
+Agent: I'm sorry about that, an unresponsive control panel needs a technician rather than a home fix. Could you confirm your account name and registered mobile number?
+Customer: Yusuf Sheikh, number ends 6207.
+Agent: Thank you, Yusuf, verified. I'm booking this as a repair request, acknowledged within 24 hours with a repair ticket number.
+Customer: How long before it's back in use?
+Agent: A standard repair is completed within 7 business days from when the unit reaches our service centre.
+Customer: The control board might need replacing though.
+Agent: If it does and the part is sourced from the manufacturer, it's a complex repair of up to 14 business days, and I'd tell you as soon as it's reclassified.
+Customer: Will I get updates in the meantime?
+Agent: An SMS at every stage, and if we exceed the SLA you're entitled to a free temporary unit until yours returns. To summarise: repair ticket raised, 24-hour acknowledgement, 7 business day standard SLA, SMS updates throughout. Thank you for calling, Yusuf, have a good day.",phone,Yes
+CALL-1044,2026-08-10,Rahul,logistics,inbound,6,"Agent: Your return is showing as not yet collected.
+Customer: Hello? I was expecting a reply to my question about the refund.
+Agent: Can you confirm the account name and order ID on the return?
+Customer: Shreya Bhatt, ORD-8039.
+Agent: Verified. The courier hasn't scanned it, so the return hasn't reached the warehouse.
+Customer: I handed it over nine days ago with your prepaid label.
+Agent: Then it may be delayed in transit. Lost-in-transit claims can be raised within 30 days of dispatch, so you're still inside the window.
+Customer: Should I raise one now?
+Agent: I'll log the claim. Once it's settled the refund is processed within 5-7 business days to your original payment method.
+Customer: Thank you. Do I need to send you anything else, like the drop-off receipt?
+Agent: Claim logged.",email,No
+CALL-1045,2026-08-09,Amit,device,inbound,9,"Agent: Good afternoon, device support, this is Amit. How may I help you?
+Customer: I've just bought your soundbar and I can't get it to pair with the TV.
+Agent: I'm sorry the setup isn't going smoothly, let's work through it. Could you confirm your account name and registered email?
+Customer: Kabir Menon, kabir.m@example.com.
+Agent: Thank you, Kabir, verified. I'm logging this as a device setup request and I'm emailing our basic troubleshooting guide, which we send on first contact.
+Customer: Is there something obvious I've missed?
+Agent: Often the TV's audio output is still set to internal speakers. Let's switch it to HDMI ARC and re-run pairing.
+Customer: That worked, sound is coming through now.
+Agent: Excellent. For future reference, support hours are Monday to Saturday, 9 am to 6 pm, and as a premium customer you can request a remote screen share any time.
+Customer: Good to know. What if the soundbar itself had been faulty?
+Agent: A hardware fault beyond software support gets escalated to the repair team and follows the repair SLA. To summarise: pairing resolved via HDMI ARC, guide in your inbox. Thank you for calling, Kabir, have a great day.",phone,Yes
+CALL-1046,2026-08-08,Priya,logistics,inbound,7,"Agent: Hi, welcome to support chat, my name is Priya. How can I help you today?
+Customer: I want to return a coffee grinder but the prepaid label never arrived by email.
+Agent: I'm sorry it didn't reach you, I'll get that sorted now. May I have your order ID and the email on the account?
+Customer: ORD-6605, latha.s@example.com.
+Agent: Thank you, Latha, verified. I'm handling this as a returns and logistics request and re-sending the prepaid return label to that address.
+Customer: Should I just courier it myself instead? It's been a week.
+Agent: Please don't, as self-paid courier charges aren't reimbursed when we've issued a prepaid label. The label should reach you within a few minutes.
+Customer: Fine, I'll wait. Packing instructions?
+Agent: Original packaging where possible, with all accessories included. I'll share the return tracking number the moment pickup is scheduled.
+Customer: And the refund?
+Agent: Within 5-7 business days of the item being received and inspected at the warehouse, to your original payment method. To summarise: label resent, original packaging preferred, tracking on pickup, refund within 5-7 business days. Thanks for chatting, Latha, have a lovely day.",chat,Yes
+CALL-1047,2026-08-07,Sara,replacement,inbound,6,"Agent: Good morning, customer support, Sara speaking. How can I help you today?
+Customer: I bought a food processor about five months ago and the bowl has cracked. I'd like a replacement.
+Agent: Sorry to hear that. Sure, I can arrange a replacement for you.
+Customer: Don't you need my order ID or the invoice?
+Agent: Don't worry about it, I'll log it without.
+Customer: Isn't there a time limit on replacements? It's definitely past five months.
+Agent: There's a window, but I'll get it approved anyway and mark it as a manufacturing defect.
+Customer: And when would it come?
+Agent: I'll have it out to you within 48 hours.
+Customer: Thank you, that's very helpful.
+Agent: No problem at all. Thanks for calling and have a good day.",phone,No
+CALL-1048,2026-08-06,James,escalation,outbound,10,"Agent: Good afternoon, this is James from customer support, calling about the case you raised last week. Is now a good time?
+Customer: Yes, please go ahead.
+Agent: Thank you. For security, could you confirm your account name and your repair ticket number?
+Customer: Ipsita Mahanty, ticket RPR-5502.
+Agent: Verified, thank you Ipsita. I'm calling because your repair has passed the 7 business day standard SLA, which is an automatic escalation trigger.
+Customer: I was about to call you about exactly that.
+Agent: I'm sorry it got to that point. I've raised a formal escalation and a senior agent will be assigned within 2 hours to own it through to closure.
+Customer: What about the machine in the meantime?
+Agent: Because the repair SLA was breached, you're entitled to a temporary replacement unit at no cost, which I'm arranging today.
+Customer: And how will the escalation reach me?
+Agent: An email and an SMS with the escalation reference and the senior agent's name, and the team works to a 24-hour resolution SLA. To summarise: escalation raised on RPR-5502, senior agent within 2 hours, temporary unit arranged, 24-hour resolution target. Thank you for your patience, Ipsita, have a good day.",phone,Yes
+CALL-1049,2026-08-05,Rahul,repair,inbound,8,"Agent: Hello, welcome to service chat, this is Rahul. How can I help you today?
+Customer: My electric scooter's brake lever has gone soft, it barely engages.
+Agent: Thank you for flagging that, a brake fault is a safety issue so please stop riding it until it's looked at. May I have your order ID and the account name?
+Customer: ORD-7930, Vinay Chandra.
+Agent: Thank you, Vinay, verified. I'm booking this as a repair request and marking it safety-related, and you'll have an acknowledgement with a ticket number within 24 hours.
+Customer: How long will the repair take?
+Agent: A standard repair is 7 business days from when the unit reaches the service centre, with an SMS update at each stage.
+Customer: And if the brake assembly has to be ordered in?
+Agent: Then it's a complex repair of up to 14 business days, and I'll let you know the moment it's reclassified.
+Customer: That's a long time to be without it.
+Agent: If we exceed the SLA you're entitled to a free temporary unit. To summarise: safety-flagged repair booked on ORD-7930, 7 business day standard SLA, SMS updates throughout. Thanks for chatting with us, Vinay, have a good day.",chat,Yes
+CALL-1050,2026-08-04,Amit,replacement,inbound,5,"Agent: Hi, support chat, Amit here. What's the problem?
+Customer: The charging dock I received is missing the power adapter.
+Agent: Are you sure you checked the whole box? This comes up constantly and it's usually under the foam.
+Customer: I emptied the box completely, there's no adapter.
+Agent: Can I get your order ID and account name?
+Customer: ORD-8156, Tarun Reddy.
+Agent: Found it. Look, packing errors are rare, but fine, I'll raise a replacement.
+Customer: I'm not making it up.
+Agent: Whatever you say. It's inside the 90-day window so it goes through, dispatch is 3-5 business days.
+Customer: Do I need to send the dock back, and will I get a tracking number?
+Agent: Amit has left the chat.",chat,No

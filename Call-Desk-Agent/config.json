@@ -1,0 +1,41 @@
+{
+  "active_provider": "local_lmstudio",
+  "providers": {
+    "gemini": {
+      "model": "models/gemini-2.5-flash",
+      "temperature": 0.3,
+      "max_output_tokens": 2000,
+      "api_key_env": "GOOGLE_API_KEY"
+    },
+    "openai": {
+      "model": "gpt-4o-mini",
+      "temperature": 0.3,
+      "max_tokens": 500,
+      "api_key_env": "OPENAI_API_KEY"
+    },
+    "anthropic": {
+      "model": "claude-haiku-4-5-20251001",
+      "temperature": 0.3,
+      "max_tokens": 500,
+      "api_key_env": "ANTHROPIC_API_KEY"
+    },
+    "local_lmstudio": {
+      "model": "qwen/qwen3.8-27b",
+      "base_url": "http://127.0.0.1:1234",
+      "temperature": 0.3,
+      "max_tokens": 2000,
+      "api_key_env": null,
+      "structured_output_method": "json_schema",
+      "structured_output_model": "qwen/qwen3-4b-2507"
+    }
+  },
+  "chunking": {
+    "chunk_size": 300,
+    "chunk_overlap": 50
+  },
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "retrieval": {
+    "rrf_k": 60,
+    "top_k_chunks": 3
+  }
+}

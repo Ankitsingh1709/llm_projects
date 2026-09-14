@@ -1,0 +1,22 @@
+DEVICE SUPPORT POLICY
+
+1. Support Hours
+Device setup and configuration support is available Monday to Saturday,
+9:00 am to 6:00 pm. Requests received outside these hours are answered on the
+next working day.
+
+2. Remote Support
+Remote support over screen share is available for premium customers. Standard
+customers are supported over phone, chat, or email with guided instructions.
+
+3. First Contact Material
+A basic troubleshooting guide is emailed to the customer on first contact, before
+any advanced diagnostic step is attempted.
+
+4. Escalation To Repair
+Hardware issues that cannot be resolved through software troubleshooting are
+escalated to the repair team, and the case then follows the repair SLA.
+
+5. Scope
+Device support covers setup, configuration, connectivity, firmware updates, and
+basic diagnostics. It does not cover third-party software or physical damage.

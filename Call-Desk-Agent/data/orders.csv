@@ -1,0 +1,41 @@
+order_id,customer_name,customer_email,order_date,item,category,quantity,amount,payment_method,payment_status,status
+ORD-5001,Neha Gupta,neha.gupta@example.com,2026-08-02,Stainless Steel Blender,kitchen,1,3499,upi,paid,delivered
+ORD-5002,Arjun Mehta,arjun.mehta@example.com,2026-08-03,Noise Cancelling Headphones,audio,1,7999,card,paid,delivered
+ORD-5003,Kavya Iyer,kavya.iyer@example.com,2026-08-04,Smartphone Fast Charger,mobile,2,1198,upi,paid,delivered
+ORD-5004,Rohit Nair,rohit.nair@example.com,2026-08-05,Mechanical Keyboard,computing,1,5499,netbanking,refunded,returned
+ORD-5005,Ananya Bose,ananya.bose@example.com,2026-08-06,Fitness Band,wearable,1,2299,card,paid,delivered
+ORD-5006,Vikram Rao,vikram.rao@example.com,2026-08-07,Air Fryer,kitchen,1,6499,cod,paid,delivered
+ORD-5007,Meera Joshi,meera.joshi@example.com,2026-08-08,Bluetooth Speaker,audio,1,2999,upi,refunded,cancelled
+ORD-5008,Sanjay Pillai,sanjay.pillai@example.com,2026-08-09,Laptop Sleeve 14 inch,computing,1,1299,upi,paid,delivered
+ORD-5009,Divya Menon,divya.menon@example.com,2026-08-10,Smart Watch Series 5,wearable,1,12999,card,refunded,returned
+ORD-5010,Karan Malhotra,karan.malhotra@example.com,2026-08-11,Electric Kettle,kitchen,1,1899,cod,paid,delivered
+ORD-5011,Tanvi Desai,tanvi.desai@example.com,2026-08-12,Wireless Earbuds,audio,1,4499,upi,paid,delivered
+ORD-5012,Farhan Qureshi,farhan.qureshi@example.com,2026-08-13,Phone Case Rugged,mobile,3,897,upi,paid,delivered
+ORD-5013,Neha Gupta,neha.gupta@example.com,2026-08-14,Coffee Grinder,kitchen,1,2799,card,refunded,returned
+ORD-5014,Arjun Mehta,arjun.mehta@example.com,2026-08-15,USB-C Hub 7-in-1,computing,1,2499,netbanking,paid,delivered
+ORD-5015,Kavya Iyer,kavya.iyer@example.com,2026-08-16,Soundbar 2.1,audio,1,8999,card,paid,delivered
+ORD-5016,Rohit Nair,rohit.nair@example.com,2026-08-17,Power Bank 20000mAh,mobile,1,1999,upi,paid,delivered
+ORD-5017,Ananya Bose,ananya.bose@example.com,2026-08-18,Yoga Mat Pro,wearable,1,1499,cod,failed,cancelled
+ORD-5018,Vikram Rao,vikram.rao@example.com,2026-08-19,Induction Cooktop,kitchen,1,4299,upi,paid,delivered
+ORD-5019,Meera Joshi,meera.joshi@example.com,2026-08-20,Studio Microphone,audio,1,6799,card,refunded,returned
+ORD-5020,Sanjay Pillai,sanjay.pillai@example.com,2026-08-21,Gaming Mouse,computing,1,2199,upi,paid,delivered
+ORD-5021,Divya Menon,divya.menon@example.com,2026-08-22,Screen Protector Pack,mobile,2,598,upi,paid,delivered
+ORD-5022,Karan Malhotra,karan.malhotra@example.com,2026-08-23,Sandwich Maker,kitchen,1,2099,card,paid,delivered
+ORD-5023,Tanvi Desai,tanvi.desai@example.com,2026-08-24,Over-Ear Headphones,audio,1,5299,netbanking,refunded,returned
+ORD-5024,Farhan Qureshi,farhan.qureshi@example.com,2026-08-25,Laptop Stand Aluminium,computing,1,1799,upi,paid,delivered
+ORD-5025,Neha Gupta,neha.gupta@example.com,2026-08-26,Smart Ring,wearable,1,9999,card,paid,delivered
+ORD-5026,Arjun Mehta,arjun.mehta@example.com,2026-08-27,Milk Frother,kitchen,1,1599,upi,refunded,cancelled
+ORD-5027,Kavya Iyer,kavya.iyer@example.com,2026-08-28,Portable SSD 1TB,computing,1,7499,card,paid,delivered
+ORD-5028,Rohit Nair,rohit.nair@example.com,2026-08-29,Car Phone Mount,mobile,1,899,cod,paid,delivered
+ORD-5029,Ananya Bose,ananya.bose@example.com,2026-08-30,Bluetooth Neckband,audio,1,1999,upi,paid,shipped
+ORD-5030,Vikram Rao,vikram.rao@example.com,2026-08-31,Rice Cooker,kitchen,1,3299,card,paid,shipped
+ORD-5031,Meera Joshi,meera.joshi@example.com,2026-09-01,Wireless Charger Pad,mobile,1,1499,upi,paid,shipped
+ORD-5032,Sanjay Pillai,sanjay.pillai@example.com,2026-09-02,Ergonomic Chair Cushion,computing,1,2599,netbanking,paid,shipped
+ORD-5033,Divya Menon,divya.menon@example.com,2026-09-02,Activity Tracker Lite,wearable,1,3499,card,paid,out_for_delivery
+ORD-5034,Karan Malhotra,karan.malhotra@example.com,2026-09-03,Hand Blender,kitchen,1,1299,upi,paid,out_for_delivery
+ORD-5035,Tanvi Desai,tanvi.desai@example.com,2026-09-03,Gaming Headset,audio,1,4999,card,paid,out_for_delivery
+ORD-5036,Farhan Qureshi,farhan.qureshi@example.com,2026-09-04,Tablet Stylus,mobile,1,2799,upi,paid,shipped
+ORD-5037,Neha Gupta,neha.gupta@example.com,2026-09-05,Espresso Machine,kitchen,1,18999,card,paid,packed
+ORD-5038,Arjun Mehta,arjun.mehta@example.com,2026-09-06,Monitor 27 inch,computing,1,15499,netbanking,paid,packed
+ORD-5039,Kavya Iyer,kavya.iyer@example.com,2026-09-06,Sleep Tracking Band,wearable,1,2999,upi,pending,placed
+ORD-5040,Rohit Nair,rohit.nair@example.com,2026-09-07,Bookshelf Speakers,audio,1,11999,cod,pending,placed

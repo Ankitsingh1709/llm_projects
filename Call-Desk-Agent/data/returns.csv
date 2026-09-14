@@ -1,0 +1,9 @@
+order_id,return_id,return_reason,requested_date,return_status,refund_amount,refund_status,refund_date
+ORD-5004,RET-7004,Keys unresponsive out of the box,2026-08-11,completed,5499,completed,2026-08-18
+ORD-5006,RET-7006,Changed mind after 21 days,2026-08-30,rejected,0,denied,
+ORD-5009,RET-7009,Screen scratched on arrival,2026-08-16,completed,12999,completed,2026-08-23
+ORD-5013,RET-7013,Wrong grind setting shipped,2026-08-20,completed,2799,completed,2026-08-27
+ORD-5015,RET-7015,Right channel crackling,2026-09-05,requested,8999,not_started,
+ORD-5019,RET-7019,Mic picks up heavy static,2026-08-26,completed,6799,completed,2026-09-02
+ORD-5023,RET-7023,Ear cushion torn,2026-08-30,completed,5299,completed,2026-09-06
+ORD-5027,RET-7027,Drive not detected on Windows,2026-09-04,approved,7499,processing,

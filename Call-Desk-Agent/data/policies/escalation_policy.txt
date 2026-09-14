@@ -1,0 +1,23 @@
+ESCALATION POLICY
+
+1. Escalation Triggers
+A case is escalated when any of the following occurs: the issue remains unresolved
+after 2 customer contacts, the customer explicitly asks to speak to a manager, or
+an applicable SLA has been breached.
+
+2. Assignment
+An escalated case is assigned to a senior agent within 2 hours of the escalation
+being raised. The senior agent owns the case until closure.
+
+3. Customer Notification
+The customer is notified of the escalation by both email and SMS, including the
+escalation reference number and the name of the owning senior agent.
+
+4. Escalation SLA
+The escalation team must provide a resolution within 24 hours of the case being
+assigned. If a resolution is not possible in 24 hours, the customer is called with
+a status update and a committed date.
+
+5. Records
+Every escalation is logged with the trigger reason, owning agent, and resolution,
+and is reviewed weekly by the quality team.
