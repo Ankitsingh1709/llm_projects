@@ -34,18 +34,19 @@ import logging
 
 import os
 import re
-import threading
 import urllib.request
+from typing import Optional
 
 from langchain_core.messages import AIMessage
+from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, StateGraph
 
 # Shared loader: imports .env (API keys) and config.json exactly once.
 from src.config import CONFIG
 from src.agent.state import AgentState
-from src.tools.call_lookup import lookup_calls
+from src.tools.call_lookup import _FUZZY_DATE_RE, _regex_filters, lookup_calls
 from src.tools.policy_search import search_policy_with_context
-from src.tools.order_lookup import lookup_orders
+from src.tools.order_lookup import focus_order_id, lookup_orders
 from src.tools.qa_scorer import score_call
 
 log = logging.getLogger(__name__)
@@ -129,30 +130,21 @@ _SUPERVISOR_LLM = _build_chat_model(CONFIG)
 # Supervisor prompt + defensive tool-word parsing
 # --------------------------------------------------------------------------- #
 
-_VALID_TOOLS: tuple[str, ...] = ("policy", "lookup", "order", "score")
+_VALID_TOOLS: tuple[str, ...] = ("policy", "lookup", "order", "score", "answer")
 
 # --------------------------------------------------------------------------- #
 # Cooperative cancellation (used by the Streamlit "Stop" button)
 # --------------------------------------------------------------------------- #
-# A process-wide flag the UI sets to ask an in-progress turn to stop. It is
-# checked between LLM calls (e.g. between scoring successive calls), so a Stop
-# halts the chain at the next call boundary rather than mid-token. reset_cancel()
-# is called by the UI at the start of every turn.
-_CANCEL = threading.Event()
-
-
-def request_cancel() -> None:
-    """Ask the current turn to stop at the next call boundary."""
-    _CANCEL.set()
-
-
-def reset_cancel() -> None:
-    """Clear the cancel flag (call at the start of each turn)."""
-    _CANCEL.clear()
-
-
-def is_cancelled() -> bool:
-    return _CANCEL.is_set()
+# The caller passes its OWN threading.Event per turn as
+# ``config={"configurable": {"cancel": event}}`` to ``graph.invoke``; LangGraph
+# hands that config to any node declaring a ``config`` parameter. Per-turn (not a
+# module global) so one browser session's Stop cannot halt another's run — the
+# compiled graph is a shared, cached singleton in the UI. Checked between LLM
+# calls, so a Stop halts at the next call boundary rather than mid-token.
+def is_cancelled(config: RunnableConfig | None) -> bool:
+    event = ((config or {}).get("configurable") or {}).get("cancel")
+    is_set = getattr(event, "is_set", None)
+    return bool(is_set and is_set())
 
 
 # Role-based access control. A customer may ask policy questions and order-status
@@ -164,7 +156,7 @@ def is_cancelled() -> bool:
 # who is asking. Fine for a single-tenant course demo; if this ever faces real
 # customers, add a `customer_name` to AgentState and force it into OrderFilters
 # in order_node (a filter the LLM cannot widen), rather than trusting the prompt.
-CUSTOMER_ALLOWED_TOOLS: tuple[str, ...] = ("policy", "order")
+CUSTOMER_ALLOWED_TOOLS: tuple[str, ...] = ("policy", "order", "answer")
 CUSTOMER_REFUSAL = (
     "I can only help with company policy, product questions, and your order "
     "status. Call records and QA scores are available to supervisors only."
@@ -181,7 +173,10 @@ SUPERVISOR_PROMPT = (
     "  lookup — find or list call records from the call database.\n"
     "  order  — look up an ORDER: its status, where the parcel is, tracking, "
     "delivery date/ETA, cancellation, return or refund.\n"
-    "  score  — run the QA rubric scorer on a call transcript.\n\n"
+    "  score  — run the QA rubric scorer on a call transcript.\n"
+    "  answer — reply from what was ALREADY shown earlier in this conversation "
+    "(a call, scorecard, order or policy answer the user is referring back to), "
+    "or plain conversation (greetings, thanks). Fetches nothing new.\n\n"
     "Rules:\n"
     "  - Policy questions -> policy.\n"
     "  - Finding/listing calls -> lookup.\n"
@@ -194,6 +189,9 @@ SUPERVISOR_PROMPT = (
     "  - When the request asks to score calls that were ALREADY looked up earlier "
     "in this conversation (\"score them\", \"score those\", \"score these\"), the "
     "transcripts are already loaded, so reply exactly: score\n"
+    "  - A question that refers back to something already discussed (\"the "
+    "call\", \"it\", \"that score\", \"why did it fail\") without asking for "
+    "new data -> answer.\n"
     "  - If none apply, reply with an empty line.\n\n"
     "Examples:\n"
     "  \"What is the replacement window?\" -> policy\n"
@@ -204,7 +202,11 @@ SUPERVISOR_PROMPT = (
     "  \"Look up call 1042 and score it\" -> lookup, score\n"
     "  \"Score Rahul's last 5 calls\" -> lookup, score\n"
     "  \"score them\" -> score\n"
-    "  \"now score those calls\" -> score\n\n"
+    "  \"now score those calls\" -> score\n"
+    "  \"what was the call about?\" -> answer\n"
+    "  \"what was this call about? summarize it\" -> answer\n"
+    "  \"why did it fail professional tone?\" -> answer\n"
+    "  \"thanks!\" -> answer\n\n"
     "User request: {message}\n\n"
     "Tools:"
 )
@@ -256,6 +258,18 @@ def _last_user_message(state: AgentState) -> str:
     return _msg_content(messages[-1]) if messages else ""
 
 
+def turn_replies(messages: list) -> list[str]:
+    """Contents of every message after the last human message — i.e. all the
+    replies the current turn produced (a chained lookup→score turn yields two).
+    Empty when the turn routed to no tool. Used by the UI to render a turn."""
+    replies: list[str] = []
+    for msg in reversed(messages or []):
+        if _msg_role(msg) in ("human", "user"):
+            break
+        replies.append(_msg_content(msg))
+    return replies[::-1]
+
+
 # --------------------------------------------------------------------------- #
 # Conversation memory management (used by the Streamlit UI, Step 8)
 # --------------------------------------------------------------------------- #
@@ -264,9 +278,21 @@ _SUMMARY_PROMPT = (
     "Summarize the following call-center assistant conversation into a few concise "
     "bullet points. Preserve the concrete facts that later turns may refer back to: "
     "which calls were looked up (their ids), which were scored and their verdicts, "
-    "and any policy questions asked. Do not invent anything. Output only the summary.\n\n"
+    "which orders were looked up (their ids) and any policy questions asked. Do not "
+    "invent anything. Output only the summary.\n\n"
     "Conversation:\n{conversation}\n\nSummary:"
 )
+
+
+def _transcript(messages: list) -> str:
+    """Plain-text 'User: / Assistant:' rendering of a message list (a summary
+    SystemMessage renders as Assistant — it is the assistant's own memory)."""
+    lines = []
+    for msg in messages:
+        role = _msg_role(msg) or "?"
+        who = "User" if role in ("human", "user") else "Assistant"
+        lines.append(f"{who}: {_msg_content(msg)}")
+    return "\n".join(lines).strip()
 
 
 def summarize_history(messages: list) -> str:
@@ -277,12 +303,7 @@ def summarize_history(messages: list) -> str:
     chat runs long; on any failure it returns a minimal, honest fallback rather
     than raising, matching the tools' string-only contract.
     """
-    lines = []
-    for msg in messages:
-        role = _msg_role(msg) or "?"
-        who = "User" if role in ("human", "user") else "Assistant"
-        lines.append(f"{who}: {_msg_content(msg)}")
-    conversation = "\n".join(lines).strip()
+    conversation = _transcript(messages)
     if not conversation:
         return ""
     try:
@@ -321,6 +342,18 @@ def supervisor_node(state: AgentState) -> dict:
                 "pending_tools": [],
             }
         tools = allowed
+
+    # A "lookup" that would run with NO filters dumps rows. When calls are already
+    # loaded, the request is a back-reference ("what was this call about?") the
+    # routing LLM misread — answer from memory instead. Fuzzy dates ("recent")
+    # are left to lookup's Stage 2, and a real Stage-1 match stays a real lookup.
+    if (
+        tools[:1] == ["lookup"]
+        and state.get("call_records")
+        and not _regex_filters(message)
+        and not _FUZZY_DATE_RE.search(message)
+    ):
+        tools = ["answer"] + [t for t in tools[1:] if t != "score"]
 
     log.info(f"[graph] supervisor role={role} message={message!r} raw={content!r} -> tools={tools}")
 
@@ -409,7 +442,10 @@ def order_node(state: AgentState) -> dict:
     own Stage-2 failures (falling back to regex-only filters) and exposes no
     degraded flag, so llm_degraded is always False here."""
     message = _last_user_message(state)
-    answer = lookup_orders(message)
+    # The tool sees only this message, so a follow-up ("when can I expect the
+    # return?") must be told which order the conversation is already about.
+    focus = focus_order_id([_msg_content(m) for m in state.get("messages") or []])
+    answer = lookup_orders(message, focus_order_id=focus)
     trace = {
         "tool": "order",
         "source_file": "data/orders.csv + shipments.csv + returns.csv",
@@ -421,7 +457,37 @@ def order_node(state: AgentState) -> dict:
     }
 
 
-def scorer_node(state: AgentState) -> dict:
+_ANSWER_PROMPT = (
+    "You are a call-center QA assistant. Answer the user's LAST message using ONLY "
+    "the conversation below — it is your memory of what was looked up, scored and "
+    "answered so far. Be concise. If the conversation does not contain what is "
+    "needed, say so and suggest what to look up; never invent calls, orders, "
+    "scores or policy.\n\n{transcripts}Conversation:\n{conversation}\n\nAnswer:"
+)
+
+
+def answer_node(state: AgentState) -> dict:
+    """Reply from conversation memory (the accumulated — and, past 6 turns,
+    summarized — `messages`). Fetches no data, so like the supervisor it appends
+    NO tool_trace entry. Reuses the import-time supervisor client."""
+    # The calls in focus (latest lookup) carry their full transcripts in
+    # call_records, not in messages — include them so "summarize the call" can
+    # actually read the call rather than the scorecard's quotes of it.
+    loaded = "".join(
+        f"[{r['call_id']}]\n{r['transcript']}\n\n" for r in state.get("call_records") or []
+    )
+    transcripts = f"Call transcripts currently loaded:\n{loaded}" if loaded else ""
+    raw = _SUPERVISOR_LLM.invoke(
+        _ANSWER_PROMPT.format(
+            transcripts=transcripts, conversation=_transcript(state.get("messages") or [])
+        )
+    )
+    content = _msg_content(raw) if not isinstance(raw, str) else raw
+    answer = _clean_content(content) or "I don't have anything in this conversation to answer that from."
+    return {"messages": [AIMessage(content=answer)]}
+
+
+def scorer_node(state: AgentState, config: Optional[RunnableConfig] = None) -> dict:
     """Score every call_record via Tool 3, one report each. Appends one
     tool_trace entry PER call scored (chosen over once-per-batch so the trace
     row-count matches the number of reports). If there are
@@ -442,7 +508,7 @@ def scorer_node(state: AgentState) -> dict:
     for record in call_records:
         # Cooperative stop: if the UI asked to cancel, stop before the next
         # (expensive) score_call rather than mid-generation.
-        if is_cancelled():
+        if is_cancelled(config):
             stopped = True
             log.warning(f"[graph] scorer_node cancelled after {len(reports)} of {len(call_records)} call(s)")
             break
@@ -501,6 +567,7 @@ def build_graph():
     graph.add_node("lookup", lookup_node)
     graph.add_node("order", order_node)
     graph.add_node("score", scorer_node)
+    graph.add_node("answer", answer_node)
 
     graph.set_entry_point("supervisor")
     graph.add_conditional_edges(
@@ -511,11 +578,13 @@ def build_graph():
             "lookup": "lookup",
             "order": "order",
             "score": "score",
+            "answer": "answer",
             END: END,
         },
     )
     graph.add_edge("policy", END)
     graph.add_edge("order", END)
+    graph.add_edge("answer", END)
     graph.add_conditional_edges("lookup", route_after_lookup, {"score": "score", END: END})
     graph.add_edge("score", END)
 
@@ -538,7 +607,6 @@ if __name__ == "__main__":  # manual smoke test — run from the repo root
                 "messages": [HumanMessage(content=user_msg)],
                 "call_records": [],
                 "qa_scores": [],
-                "agent_name": "",
                 "next_tool": "",
                 "pending_tools": [],
                 "tool_trace": [],

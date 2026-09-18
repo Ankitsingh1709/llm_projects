@@ -86,7 +86,10 @@ def _parse_report(report: str) -> tuple[dict[str, str], str]:
         if len(cells) < 2 or cells[0] not in PARAM_NAMES:
             continue
         per_param[cells[0]] = "PASS" if "PASS" in cells[1] else "FAIL"
-    overall = "PASS" if "— PASS" in report else "FAIL" if "— FAIL" in report else "?"
+    # Read the verdict from the footer line only — LLM-written justification cells
+    # can contain "— PASS"/"— FAIL" and must not decide the overall verdict.
+    footer = next((l for l in report.splitlines() if l.startswith("**Weighted score:")), "")
+    overall = "PASS" if "— PASS" in footer else "FAIL" if "— FAIL" in footer else "?"
     return per_param, overall
 
 

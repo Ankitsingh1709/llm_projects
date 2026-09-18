@@ -26,5 +26,11 @@ faiss_index/
 .vscode/
 .idea/
 
+# AI-assisted dev workflow files (kept local, never committed)
+CLAUDE.md
+docs/superpowers/
+.superpowers/
+.claude/
+
 # Local outputs
 output/
