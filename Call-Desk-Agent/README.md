@@ -371,5 +371,4 @@ node's role gate — no tool runs (empty `tool_trace`).
   rows* are visible; a customer can ask about any order. Supervisor accounts are a plaintext CSV.
 - Data is **synthetic** (50 calls, 40 orders) against fictional policies.
 - Single-user Streamlit session; memory lives in `st.session_state`.
-- Free-tier Gemini is rate-limited (5 requests/min); scoring many calls in one turn will be slow.
 - The scorer's judgments depend on the model — see `validate_scorer.py` for measured accuracy.
