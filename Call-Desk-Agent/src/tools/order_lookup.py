@@ -222,8 +222,23 @@ def _extract_order_id(query: str) -> Optional[str]:
     # do with anything ambiguous.
     # NB: the \b belongs INSIDE the ord branch — "#" is a non-word character, so
     # a leading \b would never hold before it and "#5012" would not match.
-    m = re.search(r"(?:\bord(?:er)?[\s#-]*|#)(\d{4})\b", query, re.IGNORECASE)
+    m = _ORDER_ID_RE.search(query)
     return f"ORD-{int(m.group(1)):04d}" if m else None
+
+
+_ORDER_ID_RE = re.compile(r"(?:\bord(?:er)?[\s#-]*|#)(\d{4})\b", re.IGNORECASE)
+
+
+def focus_order_id(texts: list[str]) -> Optional[str]:
+    """The order a conversation is currently about: the single order id named
+    in the most recent text that names any (user questions say "order 5027",
+    tool replies say "[ORD-5027]"). A text naming several orders (a list reply)
+    means there is no single focus, so it returns None rather than guessing."""
+    for text in reversed(texts):
+        ids = {f"ORD-{int(n):04d}" for n in _ORDER_ID_RE.findall(text)}
+        if ids:
+            return ids.pop() if len(ids) == 1 else None
+    return None
 
 
 def _extract_limit_and_order(query: str) -> tuple[Optional[int], Optional[str]]:
@@ -448,7 +463,7 @@ def _format_results(rows: pd.DataFrame) -> str:
 # Public API
 # --------------------------------------------------------------------------- #
 
-def lookup_orders(query: str) -> str:
+def lookup_orders(query: str, focus_order_id: Optional[str] = None) -> str:
     """Parse a natural-language order question into structured filters, apply
     them to the joined order/shipment/return tables, and return the matching
     orders formatted as a short status block each.
@@ -457,12 +472,24 @@ def lookup_orders(query: str) -> str:
     structured-output LLM (Stage 2) is consulted only for fuzzy dates or when
     regex matched nothing. Always returns a string — on any failure it logs and
     returns either the regex-only result or a plain-English error message.
+
+    ``focus_order_id`` is the order the conversation is already about (see
+    ``focus_order_id``); a request that resolves no filters of its own ("when can
+    I expect the return?") is answered about that order instead of dumping a
+    DEFAULT_LIMIT slice of unrelated orders.
     """
     filters = _resolve_filters(query)
     if filters.is_empty():
-        # Nothing was asked for specifically — show a recent slice rather than
-        # dumping the whole table.
-        filters.limit = DEFAULT_LIMIT
+        if focus_order_id:
+            # ponytail: any filter-less follow-up pins to the focus order, so
+            # "show me all my orders" after discussing one returns just that one;
+            # widen by naming a customer/status/date. Add an "all/every" escape
+            # if that bites.
+            filters.order_id = focus_order_id
+        else:
+            # Nothing was asked for specifically — show a recent slice rather
+            # than dumping the whole table.
+            filters.limit = DEFAULT_LIMIT
     log.info(f"[order_lookup] filters -> {filters.describe()}")
     try:
         rows = _apply_filters(_load_df(), filters)

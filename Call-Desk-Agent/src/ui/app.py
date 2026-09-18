@@ -23,6 +23,11 @@ What this UI adds on top of a plain per-turn invoke:
     working memory is bounded.
   * **Tool visibility.** Each assistant turn shows which tool(s) answered, read
     from that turn's ``tool_trace`` entries.
+  * **Landing page + mock sign-in.** The app opens on a landing page that says
+    what the agent does and offers two entry points. *Continue as a customer*
+    needs no account. *Continue as a supervisor* opens a sign-in form that only
+    admits the accounts in ``src/ui/auth.py``. The role is what
+    ``supervisor_node`` gates tools on, so the login is real routing, not decoration.
   * **Liquid-glass theme.** ``GLASS_CSS`` (below) restyles Streamlit's chrome as
     translucent Apple-style materials floating on an ambient gradient, with
     reduced-transparency / high-contrast / reduced-motion fallbacks.
@@ -37,7 +42,7 @@ import time
 from pathlib import Path
 
 import streamlit as st
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
 # `streamlit run src/ui/app.py` puts src/ui/ on sys.path — NOT the directory it
 # was launched from — so `import src...` fails even when run from the repo root
@@ -48,6 +53,7 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from src.config import CONFIG  # noqa: E402 - must follow the sys.path bootstrap
+from src.ui.auth import email_exists, resolve_role, set_password  # noqa: E402
 
 # Attaching the Streamlit run-context to the worker thread avoids "missing
 # ScriptRunContext" warnings; guarded so a version change can't break import.
@@ -65,8 +71,6 @@ POLL_SECONDS = 0.3  # how often the UI re-checks the background turn while it ru
 
 SUMMARY_TURN_THRESHOLD = 6   # summarize once the chat reaches this many user turns
 KEEP_RECENT_MESSAGES = 4     # messages kept verbatim after a summary (~2 turns)
-
-ROLES = ["Supervisor", "Customer"]
 
 # Per-role page identity (browser tab title, header, subtitle). The Customer view
 # is a customer-facing help agent; the Supervisor view is the internal QA tool.
@@ -109,6 +113,37 @@ TOOL_LABELS = {
     "order": "order",
     "score": "score",
 }
+
+
+# Shown when the supervisor routed the request to no tool (the graph then appends
+# no reply at all — previously the user's own message was echoed back).
+NO_ROUTE_REPLY = (
+    "I couldn't match that request to anything I can do. Try a policy question, "
+    "a call lookup, an order question, or a scoring request."
+)
+
+# Landing-page copy: three things the agent does, shown as a row under the CTAs.
+# (icon, title, two-line blurb) — the blurbs describe Tools 1, 4 and 2+3.
+LANDING_FEATURES = [
+    (
+        "📚",
+        "Policy answers, grounded",
+        "Ask about replacements, returns, escalations or SLAs and get an answer drawn only "
+        "from the policy documents — never from general knowledge.",
+    ),
+    (
+        "📦",
+        "Order status in plain language",
+        "Where an order is, when it lands, whether a refund went through — resolved from "
+        "the order, shipment and return records.",
+    ),
+    (
+        "🧾",
+        "Calls scored against the rubric",
+        "Supervisors look up call records and score transcripts on a 9-parameter weighted "
+        "QA rubric, with a justification for every parameter.",
+    ),
+]
 
 # --------------------------------------------------------------------------- #
 # Liquid-glass theme (Apple-style materials, depth and typography)
@@ -275,16 +310,6 @@ html, body, [class*="css"], .stApp, [data-testid="stAppViewContainer"] {
   color: #fff;
 }
 
-/* ---- Role radio: a segmented control ----------------------------------- */
-[data-testid="stSidebar"] [role="radiogroup"] {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-hairline);
-  border-radius: 12px;
-  padding: 0.3rem 0.55rem;
-  backdrop-filter: blur(18px) saturate(170%);
-  -webkit-backdrop-filter: blur(18px) saturate(170%);
-}
-
 /* ---- Chat input: a floating capsule, content scrolls under -------------- */
 [data-testid="stChatInput"] {
   background: var(--glass-bg-strong);
@@ -307,6 +332,25 @@ html, body, [class*="css"], .stApp, [data-testid="stAppViewContainer"] {
   border-radius: 14px;
   box-shadow: var(--glass-shadow);
 }
+
+/* ---- Landing page: hero type + feature row ------------------------------ */
+.landing-h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0.5rem 0 1rem;
+  color: var(--ink);
+}
+.landing-h1 .accent { color: var(--accent); }
+.landing-lede {
+  font-size: 1.15rem;
+  color: var(--ink-dim);
+  max-width: 38rem;
+  margin: 0 0 1.5rem;
+}
+.landing-feature h4 { margin: 0 0 0.3rem; font-size: 1rem; letter-spacing: -0.008em; }
+.landing-feature p  { margin: 0; font-size: 0.92rem; color: var(--ink-dim); line-height: 1.5; }
 
 /* ---- Accessibility fallbacks ------------------------------------------- */
 /* Reduced transparency: frost the glass solid, drop the blur. */
@@ -364,8 +408,7 @@ def _fresh_agent_state() -> dict:
         "messages": [],
         "call_records": [],
         "qa_scores": [],
-        "agent_name": "",
-        "role": "Supervisor",
+        "role": "Customer",
         "next_tool": "",
         "pending_tools": [],
         "tool_trace": [],
@@ -382,8 +425,16 @@ def _init_state() -> None:
         st.session_state.display = []
     if "pending_input" not in st.session_state:
         st.session_state.pending_input = None
+    if "user" not in st.session_state:
+        st.session_state.user = None        # signed-in email; None → show the login form
+    if "login_requested" not in st.session_state:
+        st.session_state.login_requested = False  # landing page by default; True → sign-in form
+    if "reset_step" not in st.session_state:
+        st.session_state.reset_step = None      # None | "email" | "password" (forgot-password flow)
+    if "reset_account" not in st.session_state:
+        st.session_state.reset_account = ""
     if "role" not in st.session_state:
-        st.session_state.role = "Supervisor"
+        st.session_state.role = "Customer"  # fail closed; set by the login form
     if "running" not in st.session_state:
         st.session_state.running = False
     if "job" not in st.session_state:
@@ -396,6 +447,113 @@ def _reset_conversation() -> None:
     st.session_state.pending_input = None
     st.session_state.running = False
     st.session_state.job = None
+
+
+def _sign_out() -> None:
+    _reset_conversation()
+    st.session_state.user = None
+    st.session_state.role = "Customer"
+    st.session_state.login_requested = False  # back to the landing page
+    st.session_state.reset_step = None
+
+
+def _render_landing() -> None:
+    """Front door: what the agent does, then the two ways in. A customer needs no
+    account; the supervisor button leads to the sign-in form."""
+    st.markdown(
+        '<h1 class="landing-h1">Ask about your order.<br>'
+        '<span class="accent">Score the call.</span></h1>'
+        '<p class="landing-lede">One agent over the company\'s policies, call records and '
+        "orders. Customers get answers on deliveries, returns and refunds; supervisors look "
+        "up calls and score them against the QA rubric.</p>",
+        unsafe_allow_html=True,
+    )
+    st.subheader("Get started")
+    left, right = st.columns(2)
+    if left.button("🙋 Continue as a customer", key="landing_customer", use_container_width=True):
+        st.session_state.user = "guest"
+        st.session_state.role = "Customer"
+        _reset_conversation()
+        st.rerun()
+    if right.button(
+        "🛠️ Continue as a supervisor", key="landing_supervisor", type="primary", use_container_width=True
+    ):
+        st.session_state.login_requested = True
+        st.rerun()
+    st.caption("Supervisors sign in with a QA account. Customers need no account.")
+    st.divider()
+    for col, (icon, title, blurb) in zip(st.columns(3), LANDING_FEATURES):
+        col.markdown(
+            f'<div class="landing-feature"><h4>{icon} {title}</h4><p>{blurb}</p></div>',
+            unsafe_allow_html=True,
+        )
+
+
+def _render_login() -> None:
+    """Supervisor sign-in. Only an account in ``data/supervisors.csv`` gets in;
+    wrong credentials show an error and keep the form. Customers never see
+    this — they take the other button on the landing page."""
+    st.title("🔐 Sign in")
+    if st.session_state.reset_step:
+        _render_reset()
+        return
+    st.caption("Supervisors sign in with their QA account.")
+    if st.session_state.pop("reset_done", False):
+        st.success("Password updated — sign in with your new password.")
+    with st.form("login"):
+        email = st.text_input("Email", key="login_email")
+        password = st.text_input("Password", type="password", key="login_password")
+        if st.form_submit_button("Sign in", key="login_submit", type="primary", use_container_width=True):
+            if resolve_role(email, password) != "Supervisor":
+                st.error("Invalid email or password.")
+            else:
+                st.session_state.user = email.strip().lower()
+                st.session_state.role = "Supervisor"
+                st.session_state.login_requested = False
+                _reset_conversation()
+                st.rerun()
+    left, right = st.columns(2)
+    if left.button("← Back", key="login_back"):
+        st.session_state.login_requested = False
+        st.rerun()
+    if right.button("Forgot password?", key="login_forgot"):
+        st.session_state.reset_step = "email"
+        st.rerun()
+
+
+def _render_reset() -> None:
+    """Two-step password reset: confirm the email is in the sheet, then write a
+    new password to it. Email-only — no verification code (see auth.py)."""
+    st.caption("Reset your supervisor password.")
+    if st.session_state.reset_step == "email":
+        with st.form("reset_email_form"):
+            email = st.text_input("Email", key="reset_email")
+            if st.form_submit_button("Continue", key="reset_continue", type="primary", use_container_width=True):
+                if not email_exists(email):
+                    st.error("No supervisor account with that email.")
+                else:
+                    st.session_state.reset_account = email.strip().lower()
+                    st.session_state.reset_step = "password"
+                    st.rerun()
+    else:
+        st.caption(f"Account: **{st.session_state.reset_account}**")
+        with st.form("reset_password_form"):
+            new = st.text_input("New password", type="password", key="reset_password")
+            confirm = st.text_input("Confirm new password", type="password", key="reset_confirm")
+            if st.form_submit_button("Set password", key="reset_submit", type="primary", use_container_width=True):
+                if not new:
+                    st.error("Enter a new password.")
+                elif new != confirm:
+                    st.error("Passwords do not match.")
+                elif not set_password(st.session_state.reset_account, new):
+                    st.error("No supervisor account with that email.")
+                else:
+                    st.session_state.reset_step = None
+                    st.session_state.reset_done = True
+                    st.rerun()
+    if st.button("← Back", key="reset_back"):
+        st.session_state.reset_step = None
+        st.rerun()
 
 
 # --------------------------------------------------------------------------- #
@@ -433,21 +591,23 @@ def _start_turn(graph, user_input: str) -> None:
     """Kick off one turn on a daemon thread. The graph runs in the background
     while the main script polls (and shows a Stop button); the worker writes only
     into a plain dict (result_box), never into st.session_state."""
-    from src.agent.graph import reset_cancel
-
     agent_state = st.session_state.agent_state
     # Append the user message and clear the previous turn's trace so the returned
     # trace is exactly this turn's; stamp the selected role for tool gating.
     agent_state["messages"] = agent_state["messages"] + [HumanMessage(content=user_input)]
     agent_state["tool_trace"] = []
-    agent_state["role"] = st.session_state.get("role", "Supervisor")
+    agent_state["role"] = st.session_state.get("role", "Customer")
 
-    reset_cancel()  # clear any Stop flag left from a previous turn
+    # This turn's own Stop flag, handed to the graph via config — never a module
+    # global, so another browser session's Stop can't cancel this run.
+    cancel = threading.Event()
     result_box: dict = {"done": False}
 
     def _run() -> None:
         try:
-            result_box["state"] = graph.invoke(agent_state)
+            result_box["state"] = graph.invoke(
+                agent_state, config={"configurable": {"cancel": cancel}}
+            )
         except Exception as exc:  # noqa: BLE001 - surface as a message, not a crash
             result_box["error"] = str(exc)
         finally:
@@ -456,7 +616,7 @@ def _start_turn(graph, user_input: str) -> None:
     thread = threading.Thread(target=_run, daemon=True)
     add_script_run_ctx(thread)
     thread.start()
-    st.session_state.job = {"thread": thread, "result_box": result_box}
+    st.session_state.job = {"thread": thread, "result_box": result_box, "cancel": cancel}
     st.session_state.running = True
 
 
@@ -471,13 +631,14 @@ def _finalize_turn() -> None:
             [],
         )
     else:
+        from src.agent.graph import turn_replies
+
         new_state = box.get("state") or st.session_state.agent_state
         st.session_state.agent_state = new_state
         trace = new_state.get("tool_trace", [])
-        last = new_state["messages"][-1] if new_state.get("messages") else None
-        answer = getattr(last, "content", "") if last is not None else ""
-        if not isinstance(answer, str):
-            answer = str(answer)
+        # Every reply this turn produced (a chained lookup→score turn has two),
+        # not just the last message.
+        answer = "\n\n".join(turn_replies(new_state.get("messages", []))) or NO_ROUTE_REPLY
 
     st.session_state.display.append({"role": "assistant", "content": answer, "trace": trace})
 
@@ -521,18 +682,29 @@ def _render_entry(entry: dict) -> None:
 # --------------------------------------------------------------------------- #
 
 def main() -> None:
-    # Title/header follow the selected role. The role widget uses key="role", so
-    # its value is restored into session_state before this runs — the title
-    # updates on the same rerun the role changes (no one-turn lag). Reading
-    # session_state before set_page_config is allowed (it's not a page command).
-    role = st.session_state.get("role", "Supervisor")
-    ui = ROLE_UI.get(role, ROLE_UI["Supervisor"])
+    # Title/header follow the signed-in role. Reading session_state before
+    # set_page_config is allowed (it's not a page command).
+    user = st.session_state.get("user")
+    role = st.session_state.get("role", "Customer")
+    if user:
+        ui = ROLE_UI.get(role, ROLE_UI["Customer"])
+    elif st.session_state.get("login_requested"):
+        ui = {"icon": "🔐", "title": "Sign in", "caption": ""}
+    else:
+        ui = {"icon": "📞", "title": "Call Center Agent", "caption": ""}
     st.set_page_config(page_title=ui["title"], page_icon=ui["icon"], layout="centered")
     st.markdown(GLASS_CSS, unsafe_allow_html=True)
-    st.title(f"{ui['icon']} {ui['title']}")
-    st.caption(ui["caption"])
 
     _init_state()
+    if not st.session_state.user:
+        if st.session_state.login_requested:
+            _render_login()
+        else:
+            _render_landing()
+        st.stop()
+
+    st.title(f"{ui['icon']} {ui['title']}")
+    st.caption(ui["caption"])
 
     # Fail clearly if the agent (and its LLM client) can't be built.
     try:
@@ -547,21 +719,18 @@ def main() -> None:
 
     # --- Sidebar -----------------------------------------------------------
     with st.sidebar:
-        st.subheader("View as")
-        role = st.radio(
-            "Role",
-            ROLES,
-            key="role",  # binds to st.session_state["role"] (read at the top for the title)
-            horizontal=True,
-            label_visibility="collapsed",
-            help="Supervisor: full access (policies, call lookup, order lookup, "
-            "QA scoring). Customer: policy questions and their own orders.",
-        )
+        st.subheader("Signed in")
         st.caption(
-            "🛠️ **Supervisor** — policies, call lookup, order lookup, QA scoring"
-            if role == "Supervisor"
-            else "🙋 **Customer** — policy questions and order status"
+            f"**{st.session_state.user}**  \n"
+            + (
+                "🛠️ **Supervisor** — policies, call lookup, order lookup, QA scoring"
+                if role == "Supervisor"
+                else "🙋 **Customer** — policy questions and order status"
+            )
         )
+        if st.button("Sign out", key="sign_out", use_container_width=True):
+            _sign_out()
+            st.rerun()
         st.divider()
 
         st.header("Try a sample")
@@ -596,9 +765,7 @@ def main() -> None:
             else:
                 st.caption("💭 Thinking…")
                 if st.button("⏹ Stop generating", type="primary", use_container_width=True):
-                    from src.agent.graph import request_cancel
-
-                    request_cancel()
+                    st.session_state.job["cancel"].set()
                     st.caption("Stopping after the current step…")
         if not box.get("done"):
             time.sleep(POLL_SECONDS)

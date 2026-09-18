@@ -12,7 +12,6 @@ Fields:
   * call_records    — [{call_id, transcript}] fetched by the lookup node; the
                       scorer node reads these to know what to score.
   * qa_scores       — the QA scorecard report string(s) produced by the scorer.
-  * agent_name      — the agent the conversation is focused on, when known.
   * role            — who is asking: "supervisor" (full access: policy, lookup,
                       order, score) or "customer" (policy + order status). The
                       supervisor node reads this to gate which tools a request may
@@ -53,7 +52,6 @@ class AgentState(TypedDict):
     messages: Annotated[list, add_messages]
     call_records: list
     qa_scores: list
-    agent_name: str
     role: str  # "supervisor" (full access) or "customer" (policy + order only);
                # gates which TOOLS the supervisor node routes to — not which rows
                # the tool returns (there is no per-customer identity here).
